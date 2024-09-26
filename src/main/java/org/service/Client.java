@@ -9,12 +9,15 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import org.configuration.Configuration;
 import org.models.Bookstore;
+import org.models.Content;
 import org.models.Message;
 
 public class Client
 {
-    public static String demarshall(File f)
+
+    public static String demarshall(Content content)
     {
+        System.out.println(content);
         JAXBContext jaxbContext;
         Bookstore o = null;
         try
@@ -26,7 +29,13 @@ public class Client
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
             // unmarshalling
+            long start = System.currentTimeMillis();
+            File f = content.getF();
             o = (Bookstore) jaxbUnmarshaller.unmarshal(f);
+            long finish = System.currentTimeMillis();
+            long duration = finish-start;
+            duration += content.marshall_time;
+            System.out.println("TIME( MARSHALLING + UNMARSHALLING ): "+duration);
 
         }catch (JAXBException e) {
             e.printStackTrace();
@@ -42,8 +51,8 @@ public class Client
         {
             try
             {
-                //targetMessage = (Message) Naming.lookup("rmi://"+ Configuration.IP_SERVICE+"/bookstore");
-                targetMessage = (Message) Naming.lookup("rmi://localhost:1099/bookstore");
+                targetMessage = (Message) Naming.lookup("rmi://"+ Configuration.IP_SERVICE+"/bookstore");
+                //targetMessage = (Message) Naming.lookup("rmi://localhost:1099/bookstore");
                 connected = true;
             }
             catch (Exception e)
@@ -52,12 +61,12 @@ public class Client
                 Thread.sleep(3000);
             }
         }
-        start = System.currentTimeMillis();
-        String message = demarshall(targetMessage.remote_message());
-        finish = System.currentTimeMillis();
+
+        Content content = targetMessage.remote_message();
+        String message = demarshall(content);
+
         System.out.println(message);
-        long duration = finish-start;
-        System.out.printf("Time: "+duration);
+        //System.out.printf("Time: "+duration);
     }
 
 }

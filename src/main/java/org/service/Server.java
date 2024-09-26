@@ -5,6 +5,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import org.models.Book;
 import org.models.Bookstore;
+import org.models.Content;
 import org.models.Message;
 
 import java.io.File;
@@ -14,11 +15,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.lang.instrument.Instrumentation;
+
 
 public class Server extends UnicastRemoteObject implements Message
 {
-    public Server() throws RemoteException {
-        super();
+
+
+    protected Server() throws RemoteException {
     }
 
     public static File marshall(File f, Bookstore bs)
@@ -48,7 +52,7 @@ public class Server extends UnicastRemoteObject implements Message
 
 
     @Override
-    public File remote_message() throws RemoteException
+    public Content remote_message() throws RemoteException
     {
         // creating java object
         Bookstore bs = new Bookstore();
@@ -63,8 +67,16 @@ public class Server extends UnicastRemoteObject implements Message
         bs.setBooks(bklist);
 
         File f = new File("bookstore.xml");
-        f = marshall(f,bs);
-        return f;
+
+        // time measure of MARSHALLING
+        long start = System.currentTimeMillis();
+        File marshalled = marshall(f,bs);
+        long finish = System.currentTimeMillis();
+        long duration = finish-start;
+
+        Content content = new Content(marshalled,duration);
+        //System.out.printf("Size of Marshalled file: "+ Instrume);
+        return content;
     }
     public static void main(String[] args) throws InterruptedException, MalformedURLException
     {
