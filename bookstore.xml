@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type='text/xsl' href='test.xsl' ?>
-<ns0:bookstore xmlns:ns0="http://www.dei.uc.pt/EAI">
-   <books>
-      <id>1</id>
-      <name>Misery</name>
-      <author>Stephen King</author>
-   </books>
-</ns0:bookstore>

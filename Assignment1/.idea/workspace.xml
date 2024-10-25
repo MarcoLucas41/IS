@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d46159df-9709-4346-a6f6-7ac884d50321" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/models/Content.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/service/ObjectSizeFetcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/models/Author.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/service/DefaultNamespacePrefixMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookstore.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/models/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/models/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/configuration/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/configuration/Configuration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/models/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/models/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/models/Bookstore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/models/Bookstore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/models/Content.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/models/Message.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/service/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/service/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/service/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/service/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/service/ObjectSizeFetcher.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/service/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,34 +48,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Application.Client.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.ObjectSizeFetcher.executor": "Run",
-    "Application.Server.executor": "Run",
-    "Application.SizeCalculate.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "/Users/marcolucas/MEI/1ºAno/1ºSemestre/IS/PL/IS-assignment1/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Client.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ObjectSizeFetcher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Server.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SizeCalculate.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/marcolucas/MEI/1ºAno/1ºSemestre/IS/PL/IS-assignment1/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4796334&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.service.App" />
+      <module name="IS-assignment1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.service.Client" />
       <module name="IS-assignment1" />
+      <shortenClasspath name="NONE" />
+      <option name="VM_PARAMETERS" value="-server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.service.*" />
@@ -106,8 +127,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="Application.Client" />
+      <item itemvalue="Application.ObjectSizeFetcher" />
+      <item itemvalue="Application.Server" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.App" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.ObjectSizeFetcher" />
@@ -132,28 +160,29 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/service/Client.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/service/Server.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/service/Client.java</url>
-          <line>64</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/service/Client.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

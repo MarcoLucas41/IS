@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type='text/xsl' href='test.xsl' ?>
+<bookstore>
+   <book id="0">
+      <title>kBtlgLuXyOGJrnkaywNTUBKFRjWVus</title>
+      <num_pages>99</num_pages>
+      <date_of_publication>2014-03-02T00:00:00Z</date_of_publication>
+      <author id="0">
+         <name>hMwZYMRUvmLvzdOiQfQTogOvdWuMDZ</name>
+         <age>96</age>
+         <date_of_birth>1998-02-11T00:00:00Z</date_of_birth>
+      </author>
+   </book>
+</bookstore>
