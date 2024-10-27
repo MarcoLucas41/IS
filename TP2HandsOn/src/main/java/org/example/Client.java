@@ -1,15 +1,7 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import org.springframework.cglib.core.internal.Function;
-import org.springframework.http.MediaType;
+import org.example.models.Media;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 public class Client {
 

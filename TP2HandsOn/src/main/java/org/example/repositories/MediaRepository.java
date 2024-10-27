@@ -1,4 +1,5 @@
-package org.example;
+package org.example.repositories;
+import org.example.models.Media;
 import org.reactivestreams.Publisher;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 

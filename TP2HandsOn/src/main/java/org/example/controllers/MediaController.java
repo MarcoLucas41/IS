@@ -1,5 +1,7 @@
-package org.example;
+package org.example.controllers;
 
+import org.example.models.Media;
+import org.example.services.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
