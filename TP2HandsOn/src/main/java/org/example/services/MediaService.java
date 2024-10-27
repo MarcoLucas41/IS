@@ -39,11 +39,11 @@ public class MediaService
 
 
 
-    public int createRelationship(Media m, Consumer c)
-    {
-        return 0;
-    }
-    public int deleteRelationship() {
-        return 0;
-    }
+//    public int createRelationship(Media m, Consumer c)
+//    {
+//        return 0;
+//    }
+//    public int deleteRelationship() {
+//        return 0;
+//    }
 }
