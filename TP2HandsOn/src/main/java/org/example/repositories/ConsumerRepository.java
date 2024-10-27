@@ -1,11 +1,14 @@
 package org.example.repositories;
 import org.example.models.Consumers;
 import org.reactivestreams.Publisher;
+import org.springframework.data.repository.RepositoryDefinition;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Repository
 public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long>{
 
     /**

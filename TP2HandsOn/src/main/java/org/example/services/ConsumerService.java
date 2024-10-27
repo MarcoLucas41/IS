@@ -4,10 +4,14 @@ import org.example.models.Consumers;
 import org.example.models.Media;
 import org.example.repositories.ConsumerRepository;
 import org.example.repositories.MediaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+@Service
 public class ConsumerService
 {
+    @Autowired
     private ConsumerRepository mr;
 
     public int createConsumer(Consumers c) {
