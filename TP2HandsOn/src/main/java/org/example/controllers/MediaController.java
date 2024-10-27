@@ -27,7 +27,7 @@ public class MediaController
     {
         return ms.getAllMedia();
     }
-    @GetMapping
+    @GetMapping("/{id}")
     private Mono<Media> getMedia(@PathVariable("id") Long id)
     {
         return ms.getMedia(id);

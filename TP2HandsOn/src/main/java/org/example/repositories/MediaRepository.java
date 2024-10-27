@@ -10,6 +10,5 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface MediaRepository extends ReactiveCrudRepository<Media,Long>{
 
-
 }
 

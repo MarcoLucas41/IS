@@ -1,6 +1,11 @@
-DROP TABLE IF EXISTS media;
+DROP TABLE IF EXISTS consumer_media CASCADE;
+DROP TABLE IF EXISTS media CASCADE;
+DROP TABLE IF EXISTS consumer CASCADE;
+
+
+
 --DROP TABLE IF EXISTS viewer;
-DROP TABLE IF EXISTS consumers;
+
 
 --CREATE TABLE media (
 --   id SERIAL PRIMARY KEY,
@@ -23,21 +28,21 @@ CREATE TABLE media (
 	type VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE consumers (
+CREATE TABLE consumer (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(100) NOT NULL,
 	age	 SMALLINT NOT NULL,
 	gender VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE consumers_media (
-	consumers_id SERIAL,
+CREATE TABLE consumer_media (
+	consumer_id SERIAL,
 	media_id SERIAL,
 	PRIMARY KEY(consumer_id,media_id)
 );
 
-ALTER TABLE consumers_media ADD CONSTRAINT consumers_media_fk1 FOREIGN KEY (consumers_id) REFERENCES consumers(id);
-ALTER TABLE consumers_media ADD CONSTRAINT consumers_media_fk2 FOREIGN KEY (media_id) REFERENCES media(id);
+ALTER TABLE consumer_media ADD CONSTRAINT consumer_media_fk1 FOREIGN KEY (consumer_id) REFERENCES consumer(id);
+ALTER TABLE consumer_media ADD CONSTRAINT consumer_media_fk2 FOREIGN KEY (media_id) REFERENCES media(id);
 
 -- Insert data into the movies table
 INSERT INTO media (title, release_date, type) VALUES
@@ -49,7 +54,7 @@ INSERT INTO media (title, release_date, type) VALUES
 
 -- Insert data into the people table
 --INSERT INTO viewer (name, age, gender) VALUES
-INSERT INTO consumers (name, age, gender) VALUES
+INSERT INTO consumer (name, age, gender) VALUES
 ('Leonardo DiCaprio', 48, 'Male'),
 ('Marlon Brando', 80, 'Male'),
 ('Uma Thurman', 53, 'Female'),
