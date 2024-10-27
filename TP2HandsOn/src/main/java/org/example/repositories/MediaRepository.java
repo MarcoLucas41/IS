@@ -114,7 +114,11 @@ public class MediaRepository implements ReactiveCrudRepository<Media,Long>{
     }
 
     @Override
-    public Flux<Media> findAll() {
+    public Flux<Media> findAll()
+    {
+        Flux<Media> fa = Flux.
+
+
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
