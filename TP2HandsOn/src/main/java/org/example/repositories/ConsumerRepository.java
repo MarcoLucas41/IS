@@ -1,12 +1,12 @@
 package org.example.repositories;
-import org.example.models.Consumers;
+import org.example.models.Consumer;
 import org.reactivestreams.Publisher;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long>{
+public class ConsumerRepository implements ReactiveCrudRepository<Consumer,Long>{
 
     /**
      * @param entity
@@ -14,7 +14,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public <S extends Consumers> Mono<S> save(S entity) {
+    public <S extends Consumer> Mono<S> save(S entity) {
         return null;
     }
 
@@ -24,7 +24,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public <S extends Consumers> Flux<S> saveAll(Iterable<S> entities) {
+    public <S extends Consumer> Flux<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
@@ -34,7 +34,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public <S extends Consumers> Flux<S> saveAll(Publisher<S> entityStream) {
+    public <S extends Consumer> Flux<S> saveAll(Publisher<S> entityStream) {
         return null;
     }
 
@@ -43,7 +43,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public Mono<Consumers> findById(Long aLong) {
+    public Mono<Consumer> findById(Long aLong) {
         return null;
     }
 
@@ -52,7 +52,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public Mono<Consumers> findById(Publisher<Long> id) {
+    public Mono<Consumer> findById(Publisher<Long> id) {
         return null;
     }
 
@@ -78,7 +78,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public Flux<Consumers> findAll() {
+    public Flux<Consumer> findAll() {
         return null;
     }
 
@@ -87,7 +87,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public Flux<Consumers> findAllById(Iterable<Long> longs) {
+    public Flux<Consumer> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -96,7 +96,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public Flux<Consumers> findAllById(Publisher<Long> idStream) {
+    public Flux<Consumer> findAllById(Publisher<Long> idStream) {
         return null;
     }
 
@@ -131,7 +131,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public Mono<Void> delete(Consumers entity) {
+    public Mono<Void> delete(Consumer entity) {
         return null;
     }
 
@@ -149,7 +149,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public Mono<Void> deleteAll(Iterable<? extends Consumers> entities) {
+    public Mono<Void> deleteAll(Iterable<? extends Consumer> entities) {
         return null;
     }
 
@@ -158,7 +158,7 @@ public class ConsumerRepository implements ReactiveCrudRepository<Consumers,Long
      * @return
      */
     @Override
-    public Mono<Void> deleteAll(Publisher<? extends Consumers> entityStream) {
+    public Mono<Void> deleteAll(Publisher<? extends Consumer> entityStream) {
         return null;
     }
 

@@ -1,8 +1,11 @@
 package org.example.models;
 
-public class Consumers {
+import org.springframework.data.annotation.Id;
 
-    private String id;
+public class Consumer {
+
+    @Id
+    private Long id;
     private String name;
     private int age;
     private String gender;
