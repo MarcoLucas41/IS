@@ -1,18 +1,10 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import org.springframework.cglib.core.internal.Function;
-import org.springframework.http.MediaType;
+import org.example.models.Media;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-public class Client {
-
+public class Training
+{
 	interface MyComparator {
 		int compareTo(int i1, int i2);
 		
@@ -111,7 +103,7 @@ public class Client {
 			e.printStackTrace();
 		}
 		*/
-
+		
 		System.out.println("\nExercise 11");
 		String BASE_URL = "http://localhost:8080";
 		String MY_URI = "/media";

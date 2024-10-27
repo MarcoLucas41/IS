@@ -3,16 +3,16 @@ package org.example;
 import org.example.models.Media;
 import org.springframework.web.reactive.function.client.WebClient;
 
-public class Client {
+public class Client
+{
+    interface MyComparator {
+        int compareTo(int i1, int i2);
 
-	interface MyComparator {
-		int compareTo(int i1, int i2);
-		
-	}
+    }
 
-	public static void main(String[] args) 
-	{
-		/* 
+    public static void main(String[] args)
+    {
+		/*
 		System.out.println("Exercise 1");
 
 		List<Integer> myIntList = new ArrayList<>(List.of(1,2,-1,0));
@@ -47,7 +47,7 @@ public class Client {
 				});
 
 		System.out.println("\nExercise 5");
-		
+
 		Flux<Integer> fi = Flux.just(1,2,3,4,5);
 		Flux<String> fs = fi.map(i -> "Number " + i);
 		fs.subscribe(System.out::println);
@@ -77,7 +77,7 @@ public class Client {
 		Mono<List<Integer>> mi = fi2.collectList();
 		System.out.println(mi.block());*/
 
-		/* 
+		/*
 		System.out.println("\nExercise 8");
 		Flux.just(1,2,3,4,5,6,5,4,3,2)
 			.buffer(2)
@@ -85,7 +85,7 @@ public class Client {
 			.flatMapIterable(Function.identity())
 			.subscribe(System.out::println);
 			*/
-		/* 
+		/*
 		System.out.println("\nExercise 10");
 		String BASE_URL = "https://www.google.com/";
 		String MY_URI = "/";
@@ -103,27 +103,21 @@ public class Client {
 			e.printStackTrace();
 		}
 		*/
-		
-		System.out.println("\nExercise 11");
-		String BASE_URL = "http://localhost:8080";
-		String MY_URI = "/media";
-		WebClient.create(BASE_URL)
-					.get()
-					.uri(MY_URI)
-					.retrieve()
-					.bodyToFlux(Media.class)
-					.subscribe(System.out::println);
-					try {
-						Thread.sleep(10*1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 
-
-
-
-		
+        String BASE_URL = "http://localhost:8080";
+        String MY_URI = "/media";
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(MY_URI)
+                .retrieve()
+                .bodyToFlux(Media.class)
+                .subscribe(System.out::println);
+        try {
+            Thread.sleep(10*1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 
 
@@ -131,11 +125,16 @@ public class Client {
 
 
 
-		
-
-		
 
 
 
-	}
+
+
+
+
+
+
+
+
+    }
 }
