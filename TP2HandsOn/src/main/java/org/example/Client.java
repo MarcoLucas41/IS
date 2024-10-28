@@ -1,7 +1,10 @@
 package org.example;
 
 import org.example.models.Media;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.time.LocalDate;
 
 public class Client
 {
@@ -103,17 +106,30 @@ public class Client
 			e.printStackTrace();
 		}
 		*/
-
+        String MEDIA_ID = "3";
         String BASE_URL = "http://localhost:8080";
-        String MY_URI = "/media";
+        String GET_ALL_MEDIA_URI = "/media";
+        String GET_MEDIA_URI = "/media/"+MEDIA_ID;
+
+
         WebClient.create(BASE_URL)
                 .get()
-                .uri(MY_URI)
+                .uri(GET_ALL_MEDIA_URI)
                 .retrieve()
                 .bodyToFlux(Media.class)
                 .subscribe(System.out::println);
+
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(GET_MEDIA_URI)
+                .retrieve()
+                .bodyToMono(Media.class)
+                .subscribe(System.out::println);
+
+
+
         try {
-            Thread.sleep(10*1000);
+            Thread.sleep(2*1000);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
