@@ -1,4 +1,4 @@
-package org.example.models;
+package org.example.entities;
 
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -9,7 +9,7 @@ import org.springframework.util.MultiValueMap;
 import java.time.LocalDate;
 import java.util.Date;
 
-@Entity
+@Data
 @Table
 @Getter
 @Setter

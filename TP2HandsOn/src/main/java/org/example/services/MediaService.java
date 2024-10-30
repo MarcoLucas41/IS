@@ -1,7 +1,6 @@
 package org.example.services;
 
-import org.example.models.Consumer;
-import org.example.models.Media;
+import org.example.entities.Media;
 import org.example.repositories.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

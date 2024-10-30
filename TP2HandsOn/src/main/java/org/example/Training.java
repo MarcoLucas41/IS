@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.models.Media;
+import org.example.entities.Media;
 import org.springframework.web.reactive.function.client.WebClient;
 
 public class Training

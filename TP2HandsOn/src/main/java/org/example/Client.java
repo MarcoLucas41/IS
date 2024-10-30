@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.models.Consumer;
-import org.example.models.Media;
+import org.example.entities.Consumer;
+import org.example.entities.Media;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;

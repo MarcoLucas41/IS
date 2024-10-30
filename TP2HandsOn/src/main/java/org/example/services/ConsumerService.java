@@ -1,14 +1,9 @@
 package org.example.services;
 
-import org.example.models.Consumer;
-import org.example.models.Media;
+import org.example.entities.Consumer;
 import org.example.repositories.ConsumerRepository;
-import org.example.repositories.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

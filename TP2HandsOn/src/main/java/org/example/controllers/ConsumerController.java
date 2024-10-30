@@ -1,6 +1,6 @@
 package org.example.controllers;
 
-import org.example.models.Consumer;
+import org.example.entities.Consumer;
 import org.example.services.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

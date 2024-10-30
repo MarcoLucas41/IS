@@ -1,11 +1,10 @@
-package org.example.models;
+package org.example.entities;
 
-import jakarta.persistence.Entity;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
+@Data
 @Table
 @Getter
 @Setter
