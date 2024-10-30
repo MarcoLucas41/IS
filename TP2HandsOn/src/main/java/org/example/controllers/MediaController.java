@@ -20,6 +20,7 @@ public class MediaController
     @PostMapping
     private Mono<Media> createMedia(@RequestBody Media m)
     {
+        System.out.println("heeeere");
         return ms.saveMedia(m);
     }
     @GetMapping
@@ -41,6 +42,7 @@ public class MediaController
     @DeleteMapping("/{id}")
     private Mono<Void> deleteMedia(@PathVariable("id") Long id)
     {
+        System.out.println("DELETE THIS RN");
         return ms.deleteMedia(id);
     }
 

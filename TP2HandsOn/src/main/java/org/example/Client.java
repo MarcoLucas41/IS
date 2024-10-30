@@ -1,6 +1,8 @@
 package org.example;
 
+import org.example.models.Consumer;
 import org.example.models.Media;
+import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -106,25 +108,100 @@ public class Client
 			e.printStackTrace();
 		}
 		*/
+
+
+
+        String CONSUMER_ID = "1";
         String MEDIA_ID = "3";
         String BASE_URL = "http://localhost:8080";
         String GET_ALL_MEDIA_URI = "/media";
         String GET_MEDIA_URI = "/media/"+MEDIA_ID;
+        String GET_ALL_CONSUMERS_URI = "/consumers";
+        String GET_CONSUMER_URI = "/consumers/"+CONSUMER_ID;
 
 
-        WebClient.create(BASE_URL)
-                .get()
-                .uri(GET_ALL_MEDIA_URI)
-                .retrieve()
-                .bodyToFlux(Media.class)
-                .subscribe(System.out::println);
+        //***** WORKS *****
+        //GET ALL MEDIA
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_MEDIA_URI)
+//                .retrieve()
+//                .bodyToFlux(Media.class)
+//                .subscribe(System.out::println);
 
-        WebClient.create(BASE_URL)
-                .get()
-                .uri(GET_MEDIA_URI)
-                .retrieve()
-                .bodyToMono(Media.class)
-                .subscribe(System.out::println);
+//        //GET ONE MEDIA
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_MEDIA_URI)
+//                .retrieve()
+//                .bodyToFlux(Media.class)
+//                .subscribe(System.out::println);
+
+        //GET ALL CONSUMERS
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_CONSUMERS_URI)
+//                .retrieve()
+//                .bodyToFlux(Consumer.class)
+//                .subscribe(System.out::println);
+
+//        //GET ONE CONSUMER
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_CONSUMER_URI)
+//                .retrieve()
+//                .bodyToMono(Consumer.class)
+//                .subscribe(System.out::println);
+
+          //POST ONE MEDIA
+//        Media series = new Media("The Walking Dead",LocalDate.of(2010, 10, 31),"TV Show");
+//
+//        WebClient.create(BASE_URL)
+//                .post()
+//                .uri(GET_ALL_MEDIA_URI)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .bodyValue(series)
+//                .retrieve()
+//                .toEntity(Media.class)
+//                .subscribe(System.out::println);
+
+          //POST ONE CONSUMER
+//        Consumer michael = new Consumer("Michael", 20,"Male");
+//
+//        WebClient.create(BASE_URL)
+//                .post()
+//                .uri(GET_ALL_CONSUMERS_URI)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .bodyValue(michael)
+//                .retrieve()
+//                .toEntity(Consumer.class)
+//                .subscribe(System.out::println);
+        //DELETE ONE MEDIA
+//        WebClient.create(BASE_URL)
+//                 .delete()
+//                 .uri(GET_MEDIA_URI)
+//                 .retrieve()
+//                 .toEntity(Media.class)
+//                 .subscribe(System.out::println);
+        // DELETE ONE CONSUMER
+//        WebClient.create(BASE_URL)
+//                 .delete()
+//                 .uri(GET_CONSUMER_URI)
+//                 .retrieve()
+//                 .toEntity(Consumer.class)
+//                 .subscribe(System.out::println);
+
+
+
+        // ***** DOESNT WORK ******
+
+
+
+//
+
+
+
+
 
 
 
