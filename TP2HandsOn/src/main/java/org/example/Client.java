@@ -1,11 +1,26 @@
 package org.example;
 
+import lombok.ToString;
 import org.example.entities.Consumer;
 import org.example.entities.Media;
+import org.springframework.core.ResolvableType;
+import org.springframework.core.codec.CharSequenceEncoder;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.Disposable;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 
 public class Client
@@ -14,110 +29,33 @@ public class Client
         int compareTo(int i1, int i2);
 
     }
+    public Mono<Void> writeRows(Flux<String> rowsFlux) {
+        DefaultDataBufferFactory bufferFactory = new DefaultDataBufferFactory();
+        CharSequenceEncoder encoder = CharSequenceEncoder.textPlainOnly();
+
+        Flux<DataBuffer> dataBufferFlux = rowsFlux.map(line ->
+                encoder.encodeValue(line, bufferFactory, ResolvableType.NONE, null, null)
+        );
+        return DataBufferUtils.write(
+                dataBufferFlux,
+                Path.of("save.txt"),
+                StandardOpenOption.CREATE_NEW
+        );
+    }
 
     public static void main(String[] args)
     {
-		/*
-		System.out.println("Exercise 1");
-
-		List<Integer> myIntList = new ArrayList<>(List.of(1,2,-1,0));
-		System.out.println(myIntList);
-
-		myIntList.sort((i1,i2) -> i1 < i2 ? -1 : (i1 == i2) ? 0 : 1);
-		myIntList.sort(Comparator.comparingInt(i -> i));
-
-		System.out.println(myIntList);
-
-		System.out.println("Exercise 2");
-
-		//myIntList.sort(Comparator.comparingInt(i -> i));
-		MyComparator myComparator = (i1,i2) -> i1 < i2 ? -1 : (i1 == i2) ? 0 : 1;
-		myIntList.sort(myComparator::compareTo);
-		System.out.println(myIntList);
-
-
-		System.out.println("Exercise 4");
-		Flux.just(1,-2,-1,0,2)
-				.map(i -> {
-					//System.out.println(Thread.currentThread());
-					return i * 2;
-				})
-				.filter(i -> {
-					//System.out.println(Thread.currentThread());
-					return i > 4;
-				})
-				.subscribe(i -> {
-					//System.out.println(Thread.currentThread());
-					System.out.println(i);
-				});
-
-		System.out.println("\nExercise 5");
-
-		Flux<Integer> fi = Flux.just(1,2,3,4,5);
-		Flux<String> fs = fi.map(i -> "Number " + i);
-		fs.subscribe(System.out::println);
-
-		Flux.just(1,2,3,4,5)
-			.map(String::valueOf)
-			.subscribe(i -> {
-				System.out.println("--Number " + i + " with type "+i.getClass().getName());
-			});
-
-		System.out.println("\nExercise 6");
-		Flux.just(1,2,3,4,5,6,7,8,9,10)
-			.buffer(7,1)
-			.map(l -> {
-				System.out.println(l);
-				float sum = 0;
-				for(int x: l)
-				{
-					sum += x;
-				}
-				return sum/l.size();
-
-			}).subscribe(System.out::println);
-		System.out.println("\nExercise 7");
-
-		Flux<Integer> fi2 = Flux.just(1,2,3,4,5,6,7,8,9,10);
-		Mono<List<Integer>> mi = fi2.collectList();
-		System.out.println(mi.block());*/
-
-		/*
-		System.out.println("\nExercise 8");
-		Flux.just(1,2,3,4,5,6,5,4,3,2)
-			.buffer(2)
-			.filter(l -> l.get(0) > l.get(1))
-			.flatMapIterable(Function.identity())
-			.subscribe(System.out::println);
-			*/
-		/*
-		System.out.println("\nExercise 10");
-		String BASE_URL = "https://www.google.com/";
-		String MY_URI = "/";
-		WebClient.create(BASE_URL)
-					.get()
-					.uri(MY_URI)
-					.accept(MediaType.APPLICATION_JSON)
-					.retrieve()
-					.bodyToMono(String.class)
-					.subscribe(System.out::println);
-		try {
-			Thread.sleep(10*1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-
-
 
         String CONSUMER_ID = "1";
         String MEDIA_ID = "3";
         String BASE_URL = "http://localhost:8080";
         String GET_ALL_MEDIA_URI = "/media";
         String GET_MEDIA_URI = "/media/"+MEDIA_ID;
-        String GET_ALL_CONSUMERS_URI = "/consumers";
-        String GET_CONSUMER_URI = "/consumers/"+CONSUMER_ID;
+        String GET_ALL_CONSUMERS_URI = "/consumer";
+        String GET_CONSUMER_URI = "/consumer/"+CONSUMER_ID;
+
+        String RELATIONSHIP_URI = "/consumer/"+CONSUMER_ID+"/"+MEDIA_ID;
+
 
 
         //***** WORKS *****
@@ -153,7 +91,7 @@ public class Client
 //                .bodyToMono(Consumer.class)
 //                .subscribe(System.out::println);
 
-          //POST ONE MEDIA
+//        //  POST ONE MEDIA
 //        Media series = new Media("The Walking Dead",LocalDate.of(2010, 10, 31),"TV Show");
 //
 //        WebClient.create(BASE_URL)
@@ -164,8 +102,8 @@ public class Client
 //                .retrieve()
 //                .toEntity(Media.class)
 //                .subscribe(System.out::println);
-
-          //POST ONE CONSUMER
+//
+//         // POST ONE CONSUMER
 //        Consumer michael = new Consumer("Michael", 20,"Male");
 //
 //        WebClient.create(BASE_URL)
@@ -195,14 +133,28 @@ public class Client
 
         // ***** DOESNT WORK ******
 
+        //CREATE RELATIONSHIP
+//        WebClient.create(BASE_URL)
+//                .post()
+//                .uri(RELATIONSHIP_URI)
+//                .retrieve()
+//                .toEntity(Consumer.class)
+//                .subscribe(System.out::println);
 
 
-//
 
-
-
-
-
+        //#1
+        String OUTPUT_FILE_PATH = "output.txt"; // Change this to your desired output file path
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(GET_ALL_MEDIA_URI)
+                .retrieve()
+                .bodyToFlux(Media.class)
+                .subscribe(
+                        media -> writeToFile(media, OUTPUT_FILE_PATH),
+                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
+                        () -> System.out.println("Data retrieval complete.")
+                );
 
 
         try {
@@ -211,23 +163,16 @@ public class Client
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+    private static void writeToFile(Media media, String filePath) {
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath),
+                Files.exists(Paths.get(filePath)) ?
+                        StandardOpenOption.APPEND :
+                        StandardOpenOption.CREATE)) {
+            writer.write(media.toString()); // Use an appropriate method to format Media
+            writer.newLine(); // Add a new line after each media item
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
     }
 }

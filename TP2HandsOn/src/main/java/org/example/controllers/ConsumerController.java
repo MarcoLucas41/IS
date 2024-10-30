@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/consumers")
+@RequestMapping("/consumer")
 public class ConsumerController
 {
     @Autowired
@@ -16,7 +16,6 @@ public class ConsumerController
     @PostMapping
     private Mono<Consumer> saveConsumer(@RequestBody Consumer c)
     {
-
         return cs.saveConsumer(c);
     }
     @GetMapping
@@ -39,4 +38,23 @@ public class ConsumerController
     {
         return cs.deleteConsumer(id);
     }
+
+    @PostMapping("/{id1}/{id2}") //id1 =consumer_id   //id2 = media_id
+    private Mono<Consumer> createRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2)
+    {
+        System.out.println("RELATIONSHIP: CREATE: NOW!!!");
+        return cs.createRelationship(id1,id2);
+    }
+
+//    @DeleteMapping
+//    private int deleteRelationship()
+//    {
+//        return ms.deleteRelationship();
+//    }
+//
+//    @GetMapping
+//    private Flux<Media> readRelationship()
+//    {
+//      return ms.getAllConsumers();
+//    }
 }

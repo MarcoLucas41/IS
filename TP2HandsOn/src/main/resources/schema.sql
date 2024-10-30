@@ -1,4 +1,5 @@
-DROP TABLE IF EXISTS consumer_media CASCADE;
+DROP TABLE IF EXISTS relationship CASCADE;
+DROP TABLE IF EXISTS consumers_media CASCADE;
 DROP TABLE IF EXISTS media CASCADE;
 DROP TABLE IF EXISTS consumer CASCADE;
 
@@ -35,14 +36,14 @@ CREATE TABLE consumer (
 	gender VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE consumer_media (
+CREATE TABLE relationship (
 	consumer_id SERIAL,
 	media_id SERIAL,
 	PRIMARY KEY(consumer_id,media_id)
 );
 
-ALTER TABLE consumer_media ADD CONSTRAINT consumer_media_fk1 FOREIGN KEY (consumer_id) REFERENCES consumer(id);
-ALTER TABLE consumer_media ADD CONSTRAINT consumer_media_fk2 FOREIGN KEY (media_id) REFERENCES media(id);
+ALTER TABLE relationship ADD CONSTRAINT relationship_fk1 FOREIGN KEY (consumer_id) REFERENCES consumer(id);
+ALTER TABLE relationship ADD CONSTRAINT relationship_fk2 FOREIGN KEY (media_id) REFERENCES media(id);
 
 -- Insert data into the movies table
 INSERT INTO media (title, release_date, type) VALUES
