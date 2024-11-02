@@ -39,6 +39,7 @@ CREATE TABLE consumer (
 CREATE TABLE relationship (
 	consumer_id SERIAL,
 	media_id SERIAL,
+    rating SMALLINT,
 	PRIMARY KEY(consumer_id,media_id)
 );
 

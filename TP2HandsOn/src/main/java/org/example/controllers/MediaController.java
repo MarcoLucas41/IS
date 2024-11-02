@@ -43,4 +43,8 @@ public class MediaController
         return ms.deleteMedia(id);
     }
 
+    @GetMapping("/subscribed/count")
+    private Mono<Long> getSubscribedMediaCount() {
+        return ms.getSubscribedMediaCount();
+    }
 }

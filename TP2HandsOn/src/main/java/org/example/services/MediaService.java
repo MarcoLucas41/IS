@@ -17,15 +17,9 @@ public class MediaService
     {
         return mr.save(m);
     }
-    public Flux<Media> getAllMedia()
-    {
-        return mr.findAll();
-    }
+    public Flux<Media> getAllMedia() { return mr.findAll(); }
 
-    public Mono<Media> getMedia(Long id)
-    {
-        return mr.findById(id);
-    }
+    public Mono<Media> getMedia(Long id) { return mr.findById(id); }
 
     public Mono<Media>  updateMedia(Media m) {
         return mr.save(m);
@@ -36,7 +30,9 @@ public class MediaService
     }
 
 
-
+    public Mono<Long> getSubscribedMediaCount() {
+        return mr.countSubscribedMedia();
+    }
 
 //    public int createRelationship(Media m, Consumer c)
 //    {

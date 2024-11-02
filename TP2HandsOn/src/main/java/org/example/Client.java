@@ -50,6 +50,7 @@ public class Client
         String MEDIA_ID = "3";
         String BASE_URL = "http://localhost:8080";
         String GET_ALL_MEDIA_URI = "/media";
+        String SUBSCRIBED_MEDIA_COUNT_URI = "/media/subscribed/count";
         String GET_MEDIA_URI = "/media/"+MEDIA_ID;
         String GET_ALL_CONSUMERS_URI = "/consumer";
         String GET_CONSUMER_URI = "/consumer/"+CONSUMER_ID;
@@ -60,12 +61,12 @@ public class Client
 
         //***** WORKS *****
         //GET ALL MEDIA
-//        WebClient.create(BASE_URL)
-//                .get()
-//                .uri(GET_ALL_MEDIA_URI)
-//                .retrieve()
-//                .bodyToFlux(Media.class)
-//                .subscribe(System.out::println);
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(GET_ALL_MEDIA_URI)
+                .retrieve()
+                .bodyToFlux(Media.class)
+                .subscribe(System.out::println);
 
 //        //GET ONE MEDIA
 //        WebClient.create(BASE_URL)
@@ -130,7 +131,6 @@ public class Client
 //                 .subscribe(System.out::println);
 
 
-
         // ***** DOESNT WORK ******
 
         //CREATE RELATIONSHIP
@@ -141,7 +141,17 @@ public class Client
 //                .toEntity(Consumer.class)
 //                .subscribe(System.out::println);
 
-
+//        // GET THE SUBSCRIBED MEDIA
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(SUBSCRIBED_MEDIA_COUNT_URI)
+//                .retrieve()
+//                .bodyToMono(Long.class)
+//                .subscribe(
+//                        count -> System.out.println("Total subscribed media count: " + count),
+//                        error -> System.err.println("Error retrieving subscribed media count: " + error.getMessage()),
+//                        () -> System.out.println("Subscribed media count retrieval complete.")
+//                );
 
         //#1
         String OUTPUT_FILE_PATH = "output.txt"; // Change this to your desired output file path

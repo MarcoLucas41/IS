@@ -1,2 +1,5 @@
-package org.example.entities;public class Relationship {
+package org.example.entities;
+
+public class Relationship {
+
 }
