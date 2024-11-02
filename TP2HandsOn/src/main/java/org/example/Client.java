@@ -31,19 +31,6 @@ public class Client
         int compareTo(int i1, int i2);
 
     }
-    public Mono<Void> writeRows(Flux<String> rowsFlux) {
-        DefaultDataBufferFactory bufferFactory = new DefaultDataBufferFactory();
-        CharSequenceEncoder encoder = CharSequenceEncoder.textPlainOnly();
-
-        Flux<DataBuffer> dataBufferFlux = rowsFlux.map(line ->
-                encoder.encodeValue(line, bufferFactory, ResolvableType.NONE, null, null)
-        );
-        return DataBufferUtils.write(
-                dataBufferFlux,
-                Path.of("save.txt"),
-                StandardOpenOption.CREATE_NEW
-        );
-    }
 
     public static void main(String[] args)
     {
@@ -59,17 +46,18 @@ public class Client
         String RELATIONSHIP_CREATE_URI = "/consumer/createRelationship/"+CONSUMER_ID+"/"+MEDIA_ID+"/"+8;
         String RELATIONSHIP_READ_URI = "/consumer/readRelationship/"+CONSUMER_ID+"/"+MEDIA_ID;
         String RELATIONSHIP_DELETE_URI = "/consumer/deleteRelationship/"+CONSUMER_ID+"/"+MEDIA_ID;
+        String GET_ALL_RELATIONSHIPS = "/consumer/getAllRelationships";
 
 
 
         //***** WORKS *****
         //GET ALL MEDIA
-        WebClient.create(BASE_URL)
-                .get()
-                .uri(GET_ALL_MEDIA_URI)
-                .retrieve()
-                .bodyToFlux(Media.class)
-                .subscribe(System.out::println);
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_MEDIA_URI)
+//                .retrieve()
+//                .bodyToFlux(Media.class)
+//                .subscribe(System.out::println);
 
 //        //GET ONE MEDIA
 //        WebClient.create(BASE_URL)
@@ -153,50 +141,75 @@ public class Client
 //                .subscribe(System.out::println);
 
 
-        // #1
-//        String OUTPUT1= "output.txt";
-//        String OUTPUT2= "output2.txt";
-//
-//
-//
+
+        String OUTPUT1= "output.txt";
+        String OUTPUT2= "output2.txt";
+        String OUTPUT3= "output3.txt";
+        String OUTPUT5= "output5.txt";
+        String OUTPUT7 = "output7.txt";
+
+//        // #1
 //        WebClient.create(BASE_URL)
 //                    .get()
 //                    .uri(GET_ALL_MEDIA_URI)
 //                    .retrieve()
 //                    .bodyToFlux(Media.class)
 //                    .subscribe(
-//                            media -> writeToFile(media, OUTPUT1),
+//                            media -> writeToFile(media.getTitle()+"||"+media.getRelease_date().toString(), OUTPUT1),
 //                            error -> System.err.println("Error retrieving media: " + error.getMessage()),
 //                            () -> System.out.println("Data retrieval complete.")
 //                    );
+//        // #2
 //        WebClient.create(BASE_URL)
-//                .get()
-//                .uri(GET_ALL_MEDIA_URI)
-//                .retrieve()
-//                .bodyToFlux(Media.class)
-//                .subscribe(
-//                        media -> writeToFile(media, OUTPUT1),
-//                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
+//                    .get()
+//                    .uri(GET_ALL_MEDIA_URI)
+//                    .retrieve()
+//                    .bodyToFlux(Media.class)
+//                    .count()
+//                    .subscribe(
+//                        count -> writeToFile(count.toString(), OUTPUT2),
+//                        error -> System.err.println("Error retrieving the number of media items: " + error.getMessage()),
 //                        () -> System.out.println("Data retrieval complete.")
 //                );
-
-        //3
-//        String OUTPUT3 = "output3.txt";
+//        // #3
 //        WebClient.create(BASE_URL)
 //                .get()
 //                .uri(GET_ALL_MEDIA_URI)
 //                .retrieve()
 //                .bodyToFlux(Media.class)
 //                .filter(media -> media.getAvg_rating() > 8)
+//                .count()
 //                .subscribe(
-//                        media -> writeToFile(media, OUTPUT3),
-//                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
+//                        count -> writeToFile(count.toString(), OUTPUT3),
+//                        error -> System.err.println("Error retrieving the media items with average rating above 8: " + error.getMessage()),
 //                        () -> System.out.println("Data retrieval complete.")
 //                );
+
+         // #4 (POR FAZER)
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_RELATIONSHIPS)
+//                .retrieve()
+//                .bodyToFlux(Relationship.class)
+//                .map(media -> media.)
+//                .subscribe(
+//                        count -> writeToFile(count.toString(), OUTPUT3),
+//                        error -> System.err.println("Error retrieving the media items with average rating above 8: " + error.getMessage()),
+//                        () -> System.out.println("Data retrieval complete.")
+//                );
+
+//        // #5
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_MEDIA_URI)
+//                .retrieve()
+//                .bodyToFlux(Media.class)
+//                .filter(media -> media.getRelease_date().isBefore(LocalDate.of(1990, 1, 1)) && media.getRelease_date().isAfter(LocalDate.of(1979, 12, 31)))
+//                .subscribe(System.out::println);
+
 //
 //
 //        // #7
-//        String OUTPUT7 = "output7.txt";
 //
 //        WebClient.create(BASE_URL)
 //                .get()
@@ -226,12 +239,12 @@ public class Client
 
 
     }
-    private static void writeToFile(Media media, String filePath) {
+    private static void writeToFile(String data, String filePath) {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath),
                 Files.exists(Paths.get(filePath)) ?
                         StandardOpenOption.APPEND :
                         StandardOpenOption.CREATE)) {
-            writer.write(media.toString()); // Use an appropriate method to format Media
+            writer.write(data); // Use an appropriate method to format Media
             writer.newLine(); // Add a new line after each media item
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());

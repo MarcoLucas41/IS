@@ -52,15 +52,6 @@ public class ConsumerController
         r.setConsumerId(id1);
         r.setMediaId(id2);
         r.setRating(rating);
-
-//        r.setConsumerId((Long) body.get("consumer_id"));
-//        r.setMediaId((Long) body.get("media_id"));
-//        r.setRating((Integer) body.get("rating"));
-//
-//        System.out.println(r.getConsumerId());
-//        System.out.println(r.getRating());
-
-
         return rs.createRelationship(r);
     }
 
@@ -69,12 +60,20 @@ public class ConsumerController
     {
         return rs.readRelationship(id1,id2);
     }
+    @GetMapping("/getAllRelationships")
+    private Flux<Relationship> getAllRelationships()
+    {
+        return rs.getAllRelationships();
+    }
 
     @DeleteMapping("/deleteRelationship/{id1}/{id2}")
     private Mono<Void> deleteRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2)
     {
         return rs.deleteRelationship(id1,id2);
     }
+
+
+
 
 
 

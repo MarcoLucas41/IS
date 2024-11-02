@@ -42,7 +42,10 @@ public class RelationshipService
 
     }
 
-
+    public Flux<Relationship> getAllRelationships()
+    {
+        return rr.findAll();
+    }
     public Mono<Relationship> readRelationship(Long id1, Long id2)
     {
         return rr.findAll()

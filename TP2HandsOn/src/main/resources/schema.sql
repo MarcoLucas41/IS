@@ -51,7 +51,9 @@ INSERT INTO media (title, release_date, type) VALUES
 ('The Godfather', '1972-03-24', 'Crime Drama'),
 ('Pulp Fiction', '1994-10-14', 'Crime Thriller'),
 ('The Dark Knight', '2008-07-18', 'Superhero'),
-('Forrest Gump', '1994-07-06', 'Drama');
+('Forrest Gump', '1994-07-06', 'Drama'),
+('Robocop','1987-10-23', 'Science Fiction');
+
 
 -- Insert data into the people table
 --INSERT INTO viewer (name, age, gender) VALUES
