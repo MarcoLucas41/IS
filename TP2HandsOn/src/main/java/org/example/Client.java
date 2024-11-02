@@ -3,6 +3,8 @@ package org.example;
 import lombok.ToString;
 import org.example.entities.Consumer;
 import org.example.entities.Media;
+import org.example.entities.Relationship;
+import org.json.JSONObject;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.codec.CharSequenceEncoder;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -54,18 +56,20 @@ public class Client
         String GET_ALL_CONSUMERS_URI = "/consumer";
         String GET_CONSUMER_URI = "/consumer/"+CONSUMER_ID;
 
-        String RELATIONSHIP_URI = "/consumer/"+CONSUMER_ID+"/"+MEDIA_ID;
+        String RELATIONSHIP_CREATE_URI = "/consumer/createRelationship/"+CONSUMER_ID+"/"+MEDIA_ID+"/"+8;
+        String RELATIONSHIP_READ_URI = "/consumer/readRelationship/"+CONSUMER_ID+"/"+MEDIA_ID;
+        String RELATIONSHIP_DELETE_URI = "/consumer/deleteRelationship/"+CONSUMER_ID+"/"+MEDIA_ID;
 
 
 
         //***** WORKS *****
         //GET ALL MEDIA
-//        WebClient.create(BASE_URL)
-//                .get()
-//                .uri(GET_ALL_MEDIA_URI)
-//                .retrieve()
-//                .bodyToFlux(Media.class)
-//                .subscribe(System.out::println);
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(GET_ALL_MEDIA_URI)
+                .retrieve()
+                .bodyToFlux(Media.class)
+                .subscribe(System.out::println);
 
 //        //GET ONE MEDIA
 //        WebClient.create(BASE_URL)
@@ -131,31 +135,82 @@ public class Client
 
 
 
-        // ***** DOESNT WORK ******
 
         //CREATE RELATIONSHIP
 //        WebClient.create(BASE_URL)
 //                .post()
-//                .uri(RELATIONSHIP_URI)
+//                .uri(RELATIONSHIP_CREATE_URI)
+//                .accept(MediaType.APPLICATION_JSON)
 //                .retrieve()
-//                .toEntity(Consumer.class)
+//                .toEntity(Relationship.class)
+//                .subscribe(System.out::println);
+
+//        WebClient.create(BASE_URL)
+//                .delete()
+//                .uri(RELATIONSHIP_DELETE_URI)
+//                .retrieve()
+//                .toEntity(Relationship.class)
 //                .subscribe(System.out::println);
 
 
+        // #1
+//        String OUTPUT1= "output.txt";
+//        String OUTPUT2= "output2.txt";
+//
+//
+//
+//        WebClient.create(BASE_URL)
+//                    .get()
+//                    .uri(GET_ALL_MEDIA_URI)
+//                    .retrieve()
+//                    .bodyToFlux(Media.class)
+//                    .subscribe(
+//                            media -> writeToFile(media, OUTPUT1),
+//                            error -> System.err.println("Error retrieving media: " + error.getMessage()),
+//                            () -> System.out.println("Data retrieval complete.")
+//                    );
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_MEDIA_URI)
+//                .retrieve()
+//                .bodyToFlux(Media.class)
+//                .subscribe(
+//                        media -> writeToFile(media, OUTPUT1),
+//                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
+//                        () -> System.out.println("Data retrieval complete.")
+//                );
 
-        //#1
-        String OUTPUT_FILE_PATH = "output.txt"; // Change this to your desired output file path
-        WebClient.create(BASE_URL)
-                .get()
-                .uri(GET_ALL_MEDIA_URI)
-                .retrieve()
-                .bodyToFlux(Media.class)
-                .subscribe(
-                        media -> writeToFile(media, OUTPUT_FILE_PATH),
-                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
-                        () -> System.out.println("Data retrieval complete.")
-                );
-
+        //3
+//        String OUTPUT3 = "output3.txt";
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_MEDIA_URI)
+//                .retrieve()
+//                .bodyToFlux(Media.class)
+//                .filter(media -> media.getAvg_rating() > 8)
+//                .subscribe(
+//                        media -> writeToFile(media, OUTPUT3),
+//                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
+//                        () -> System.out.println("Data retrieval complete.")
+//                );
+//
+//
+//        // #7
+//        String OUTPUT7 = "output7.txt";
+//
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_MEDIA_URI)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .bodyToFlux(Media.class)
+//                .sort( (i1,i2) -> i1.getRelease_date().isBefore(i2.getRelease_date()) ? -1 : (i1.getRelease_date().isEqual(i2.getRelease_date())) ? 0 : 1)
+//                .take(1)
+//                .subscribe(
+//                        media -> writeToFile(media, OUTPUT7),
+//                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
+//                        () -> System.out.println("Data retrieval complete.")
+//                );
 
         try {
             Thread.sleep(2*1000);
@@ -163,6 +218,13 @@ public class Client
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+
+
+
+
+
+
     }
     private static void writeToFile(Media media, String filePath) {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath),

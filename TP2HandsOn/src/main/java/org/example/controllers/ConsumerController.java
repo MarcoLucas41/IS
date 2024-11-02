@@ -1,7 +1,10 @@
 package org.example.controllers;
 
 import org.example.entities.Consumer;
+import org.example.entities.Relationship;
 import org.example.services.ConsumerService;
+import org.example.services.RelationshipService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -13,6 +16,9 @@ public class ConsumerController
 {
     @Autowired
     private ConsumerService cs;
+    @Autowired
+    private RelationshipService rs;
+
     @PostMapping
     private Mono<Consumer> saveConsumer(@RequestBody Consumer c)
     {
@@ -39,22 +45,37 @@ public class ConsumerController
         return cs.deleteConsumer(id);
     }
 
-    @PostMapping("/{id1}/{id2}") //id1 =consumer_id   //id2 = media_id
-    private Mono<Consumer> createRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2)
+    @PostMapping("/createRelationship/{id1}/{id2}/{rating}") //id1 =consumer_id   //id2 = media_id
+    private Mono<Relationship> createRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2, @PathVariable("rating") int rating)
     {
-        System.out.println("RELATIONSHIP: CREATE: NOW!!!");
-        return cs.createRelationship(id1,id2);
+        Relationship  r = new Relationship();
+        r.setConsumerId(id1);
+        r.setMediaId(id2);
+        r.setRating(rating);
+
+//        r.setConsumerId((Long) body.get("consumer_id"));
+//        r.setMediaId((Long) body.get("media_id"));
+//        r.setRating((Integer) body.get("rating"));
+//
+//        System.out.println(r.getConsumerId());
+//        System.out.println(r.getRating());
+
+
+        return rs.createRelationship(r);
     }
 
-//    @DeleteMapping
-//    private int deleteRelationship()
-//    {
-//        return ms.deleteRelationship();
-//    }
-//
-//    @GetMapping
-//    private Flux<Media> readRelationship()
-//    {
-//      return ms.getAllConsumers();
-//    }
+    @GetMapping("/readRelationship/{id1}/{id2}")
+    private Mono<Relationship> readRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2)
+    {
+        return rs.readRelationship(id1,id2);
+    }
+
+    @DeleteMapping("/deleteRelationship/{id1}/{id2}")
+    private Mono<Void> deleteRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2)
+    {
+        return rs.deleteRelationship(id1,id2);
+    }
+
+
+
 }

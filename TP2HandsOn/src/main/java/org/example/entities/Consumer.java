@@ -4,16 +4,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Table(name = "consumer")
 @Data
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Consumer {
 
     @Id
@@ -22,7 +22,7 @@ public class Consumer {
     private int age;
     private String gender;
 
-    @Builder.Default
+    @Transient
     private List<Long> favoriteMediaIds = new ArrayList<>(); // Store related Media IDs
 
     public void addMedia(Long mediaId) {
