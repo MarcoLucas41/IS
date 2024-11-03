@@ -83,6 +83,16 @@ public class MediaService
                     return Mono.just(avg);               // Calculate and return the average
                 });
     }
+
+    public Mono<Double> calculateAverageUsersPerMedia() {
+        return mr.findAll()
+                .flatMap(media -> mr.countConsumersByMediaId(media.getId())) // Adjust method name if needed
+                .collectList()
+                .map(counts -> {
+                    double sum = counts.stream().mapToInt(count -> count).sum();
+                    return sum / counts.size();
+                });
+    }
 }
 
 // Helper class to hold the sum and count

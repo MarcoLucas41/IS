@@ -42,6 +42,7 @@ public class Client
         String GET_MEDIA_URI = "/media/"+MEDIA_ID;
         String GET_ALL_CONSUMERS_URI = "/consumer";
         String GET_CONSUMER_URI = "/consumer/"+CONSUMER_ID;
+        String AVERAGE_USERS_PER_MEDIA_URI = "/media/average-users-per-media";
 
         String RELATIONSHIP_CREATE_URI = "/consumer/createRelationship/"+CONSUMER_ID+"/"+MEDIA_ID+"/"+8;
         String RELATIONSHIP_READ_URI = "/consumer/readRelationship/"+CONSUMER_ID+"/"+MEDIA_ID;
@@ -221,7 +222,16 @@ public class Client
 //                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
 //                        () -> System.out.println("Data retrieval complete.")
 //                );
-
+//        #8 ( FALTAM COISAS )
+//        WebClient.create("BASE_URL")
+//                .get()
+//                .uri("/media/average-users-per-media")
+//                .retrieve()
+//                .bodyToMono(Double.class)
+//                .subscribe(
+//                        avg -> System.out.println("Average users per media: " + avg),
+//                        error -> System.err.println("Error retrieving average users per media: " + error.getMessage())
+//                );
         try {
             Thread.sleep(2*1000);
         } catch (InterruptedException e) {

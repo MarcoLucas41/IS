@@ -49,4 +49,9 @@ public class MediaController
     private Mono<Long> getSubscribedMediaCount() {
         return ms.getSubscribedMediaCount();
     }
+
+    @GetMapping("/average-users-per-media")
+    public Mono<Double> getAverageUsersPerMedia() {
+        return ms.calculateAverageUsersPerMedia();
+    }
 }
