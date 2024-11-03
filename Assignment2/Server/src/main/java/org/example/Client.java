@@ -32,6 +32,7 @@ public class Client
 
     }
 
+
     public static void main(String[] args)
     {
 
@@ -147,18 +148,19 @@ public class Client
         String OUTPUT3= "output3.txt";
         String OUTPUT5= "output5.txt";
         String OUTPUT7 = "output7.txt";
+        String OUTPUT10 = "output10.txt";
 
 //        // #1
-//        WebClient.create(BASE_URL)
-//                    .get()
-//                    .uri(GET_ALL_MEDIA_URI)
-//                    .retrieve()
-//                    .bodyToFlux(Media.class)
-//                    .subscribe(
-//                            media -> writeToFile(media.getTitle()+"||"+media.getRelease_date().toString(), OUTPUT1),
-//                            error -> System.err.println("Error retrieving media: " + error.getMessage()),
-//                            () -> System.out.println("Data retrieval complete.")
-//                    );
+        WebClient.create(BASE_URL)
+                    .get()
+                    .uri(GET_ALL_MEDIA_URI)
+                    .retrieve()
+                    .bodyToFlux(Media.class)
+                    .subscribe(
+                            media -> writeToFile(media.getTitle()+"||"+media.getRelease_date().toString(), OUTPUT1),
+                            error -> System.err.println("Error retrieving media: " + error.getMessage()),
+                            () -> System.out.println("Data retrieval complete.")
+                    );
 //        // #2
 //        WebClient.create(BASE_URL)
 //                    .get()
@@ -222,6 +224,23 @@ public class Client
 //                .subscribe(
 //                        media -> writeToFile(media, OUTPUT7),
 //                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
+//                        () -> System.out.println("Data retrieval complete.")
+//                );
+
+//        // #8
+
+//            WebClient.create(BASE_URL)
+//                    .get()
+//                    .uri(GET_ALL_CONSUMERS_URI)
+//                    .accept(MediaType.APPLICATION_JSON)
+//                    .retrieve()
+//                    .bodyToFlux(Consumer.class)
+//                    .flatMap(consumer -> )
+//                    .subscribe(
+//                        consumer -> {
+//                            writeToFile(consumer.toString(), OUTPUT10);
+//                            },
+//                        error -> System.err.println("Error retrieving consumers: " + error.getMessage()),
 //                        () -> System.out.println("Data retrieval complete.")
 //                );
 
