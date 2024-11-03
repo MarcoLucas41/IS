@@ -16,5 +16,8 @@ public interface MediaRepository extends ReactiveCrudRepository<Media,Long>{
 
     @Query("SELECT COUNT(*) FROM consumer_media WHERE media_id = :mediaId")
     Mono<Integer> countConsumersByMediaId(Long mediaId);
+
+    @Query("SELECT avg_rating FROM media")
+    Flux<Integer> findAllRatings();
 }
 

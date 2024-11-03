@@ -54,4 +54,9 @@ public class MediaController
     public Mono<Double> getAverageUsersPerMedia() {
         return ms.calculateAverageUsersPerMedia();
     }
+
+    @GetMapping("/average-and-stddev-ratings")
+    private Mono<Double[]> getAverageAndStdDevRatings() {
+        return ms.getAverageAndStdDevOfRatings();
+    }
 }

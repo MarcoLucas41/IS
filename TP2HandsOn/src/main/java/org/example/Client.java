@@ -43,6 +43,7 @@ public class Client
         String GET_ALL_CONSUMERS_URI = "/consumer";
         String GET_CONSUMER_URI = "/consumer/"+CONSUMER_ID;
         String AVERAGE_USERS_PER_MEDIA_URI = "/media/average-users-per-media";
+        String AVERAGE_STDDEV_RATINGS_URI = "/media/average-and-stddev-ratings";
 
         String RELATIONSHIP_CREATE_URI = "/consumer/createRelationship/"+CONSUMER_ID+"/"+MEDIA_ID+"/"+8;
         String RELATIONSHIP_READ_URI = "/consumer/readRelationship/"+CONSUMER_ID+"/"+MEDIA_ID;
@@ -205,6 +206,17 @@ public class Client
 //                .filter(media -> media.getRelease_date().isBefore(LocalDate.of(1990, 1, 1)) && media.getRelease_date().isAfter(LocalDate.of(1979, 12, 31)))
 //                .subscribe(System.out::println);
 
+        // Call the endpoint to get the average and standard deviation of media ratings
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(AVERAGE_STDDEV_RATINGS_URI)
+                .retrieve()
+                .bodyToMono(Double[].class)
+                .subscribe(
+                        stats -> System.out.println("Average Rating: " + stats[0] + ", Standard Deviation: " + stats[1]),
+                        error -> System.err.println("Error retrieving average and standard deviation of ratings: " + error.getMessage()),
+                        () -> System.out.println("Ratings statistics retrieval complete.")
+                );
 //
 //
 //        // #7
