@@ -44,6 +44,7 @@ public class Client
         String GET_CONSUMER_URI = "/consumer/"+CONSUMER_ID;
         String AVERAGE_USERS_PER_MEDIA_URI = "/media/average-users-per-media";
         String AVERAGE_STDDEV_RATINGS_URI = "/media/average-and-stddev-ratings";
+        String RELATIONSHIPS_URI = "/media/relationships";
 
         String RELATIONSHIP_CREATE_URI = "/consumer/createRelationship/"+CONSUMER_ID+"/"+MEDIA_ID+"/"+8;
         String RELATIONSHIP_READ_URI = "/consumer/readRelationship/"+CONSUMER_ID+"/"+MEDIA_ID;
@@ -54,12 +55,12 @@ public class Client
 
         //***** WORKS *****
         //GET ALL MEDIA
-        WebClient.create(BASE_URL)
-                .get()
-                .uri(GET_ALL_MEDIA_URI)
-                .retrieve()
-                .bodyToFlux(Media.class)
-                .subscribe(System.out::println);
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(GET_ALL_MEDIA_URI)
+//                .retrieve()
+//                .bodyToFlux(Media.class)
+//                .subscribe(System.out::println);
 
 //        //GET ONE MEDIA
 //        WebClient.create(BASE_URL)
@@ -125,7 +126,7 @@ public class Client
 
 
 
-        //CREATE RELATIONSHIP
+//        CREATE RELATIONSHIP
 //        WebClient.create(BASE_URL)
 //                .post()
 //                .uri(RELATIONSHIP_CREATE_URI)
@@ -133,7 +134,7 @@ public class Client
 //                .retrieve()
 //                .toEntity(Relationship.class)
 //                .subscribe(System.out::println);
-
+//
 //        WebClient.create(BASE_URL)
 //                .delete()
 //                .uri(RELATIONSHIP_DELETE_URI)
@@ -141,6 +142,17 @@ public class Client
 //                .toEntity(Relationship.class)
 //                .subscribe(System.out::println);
 
+        //SHOW RELATIONSHIPS
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(RELATIONSHIPS_URI)
+                .retrieve()
+                .bodyToFlux(Relationship.class)
+                .subscribe(
+                        relationship -> System.out.println("Relationship: " + relationship),
+                        error -> System.err.println("Error retrieving relationships: " + error.getMessage()),
+                        () -> System.out.println("All relationships retrieval complete.")
+                );
 
         String OUTPUT1= "output.txt";
         String OUTPUT2= "output2.txt";
@@ -207,17 +219,17 @@ public class Client
 //                .subscribe(System.out::println);
 
         // #6 (FALTAM COISAS)
-        WebClient.create(BASE_URL)
-                .get()
-                .uri(AVERAGE_STDDEV_RATINGS_URI)
-                .retrieve()
-                .bodyToMono(Double[].class)
-                .subscribe(
-                        stats -> System.out.println("Average Rating: " + stats[0] + ", Standard Deviation: " + stats[1]),
-                        error -> System.err.println("Error retrieving average and standard deviation of ratings: " + error.getMessage()),
-                        () -> System.out.println("Ratings statistics retrieval complete.")
-                );
-//
+//        WebClient.create(BASE_URL)
+//                .get()
+//                .uri(AVERAGE_STDDEV_RATINGS_URI)
+//                .retrieve()
+//                .bodyToMono(Double[].class)
+//                .subscribe(
+//                        stats -> System.out.println("Average Rating: " + stats[0] + ", Standard Deviation: " + stats[1]),
+//                        error -> System.err.println("Error retrieving average and standard deviation of ratings: " + error.getMessage()),
+//                        () -> System.out.println("Ratings statistics retrieval complete.")
+//                );
+
 //
 //        // #7
 //
@@ -235,15 +247,15 @@ public class Client
 //                        () -> System.out.println("Data retrieval complete.")
 //                );
 //        #8 ( FALTAM COISAS )
-//        WebClient.create("BASE_URL")
-//                .get()
-//                .uri("/media/average-users-per-media")
-//                .retrieve()
-//                .bodyToMono(Double.class)
-//                .subscribe(
-//                        avg -> System.out.println("Average users per media: " + avg),
-//                        error -> System.err.println("Error retrieving average users per media: " + error.getMessage())
-//                );
+        WebClient.create(BASE_URL)
+                .get()
+                .uri("/media/average-users-per-media")
+                .retrieve()
+                .bodyToMono(Double.class)
+                .subscribe(
+                        avg -> System.out.println("Average users per media: " + avg),
+                        error -> System.err.println("Error retrieving average users per media: " + error.getMessage())
+                );
         try {
             Thread.sleep(2*1000);
         } catch (InterruptedException e) {

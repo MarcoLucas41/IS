@@ -1,6 +1,7 @@
 package org.example.repositories;
 import org.example.entities.Consumer;
 import org.example.entities.Media;
+import org.example.entities.Relationship;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,9 @@ public interface MediaRepository extends ReactiveCrudRepository<Media,Long>{
 
     @Query("SELECT COUNT(*) FROM consumer_media WHERE media_id = :mediaId")
     Mono<Integer> countConsumersByMediaId(Long mediaId);
+
+    @Query("SELECT * FROM consumer_media")
+    Flux<Relationship> findAllRelationships();
 
     @Query("SELECT avg_rating FROM media")
     Flux<Integer> findAllRatings();

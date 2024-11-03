@@ -115,6 +115,10 @@ public class MediaService
                     return Mono.just(new Double[]{average, stdDeviation});
                 });
     }
+
+    public Flux<Relationship> getAllRelationships() {
+        return mr.findAllRelationships();
+    }
 }
 
 // Helper class to hold the sum and count

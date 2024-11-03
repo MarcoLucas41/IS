@@ -45,6 +45,10 @@ public class MediaController
         return ms.deleteMedia(id);
     }
 
+    @GetMapping("/relationships")
+    public Flux<Relationship> getAllRelationships() {
+        return ms.getAllRelationships();
+    }
     @GetMapping("/subscribed/count")
     private Mono<Long> getSubscribedMediaCount() {
         return ms.getSubscribedMediaCount();
