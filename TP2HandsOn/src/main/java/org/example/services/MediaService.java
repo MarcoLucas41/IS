@@ -87,11 +87,12 @@ public class MediaService
 
     public Mono<Double> calculateAverageUsersPerMedia() {
         return mr.findAll()
-                .flatMap(media -> mr.countConsumersByMediaId(media.getId())) // Adjust method name if needed
+                .flatMap(media -> mr.countConsumersByMediaId(media.getId())
+                        .filter(count -> count > 0))
                 .collectList()
                 .map(counts -> {
                     double sum = counts.stream().mapToInt(count -> count).sum();
-                    return sum / counts.size();
+                    return counts.isEmpty() ? 0 : sum / counts.size();
                 });
     }
 

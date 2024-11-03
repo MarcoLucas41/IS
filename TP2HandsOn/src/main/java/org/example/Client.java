@@ -242,7 +242,7 @@ public class Client
 //                        error -> System.err.println("Error retrieving media: " + error.getMessage()),
 //                        () -> System.out.println("Data retrieval complete.")
 //                );
-//        #8 ( FALTAM COISAS )
+//        #8
         WebClient.create(BASE_URL)
                 .get()
                 .uri("/media/average-users-per-media")
