@@ -139,17 +139,6 @@ public class Client
 //                .toEntity(Relationship.class)
 //                .subscribe(System.out::println);
 
-//        // GET THE SUBSCRIBED MEDIA
-//        WebClient.create(BASE_URL)
-//                .get()
-//                .uri(SUBSCRIBED_MEDIA_COUNT_URI)
-//                .retrieve()
-//                .bodyToMono(Long.class)
-//                .subscribe(
-//                        count -> System.out.println("Total subscribed media count: " + count),
-//                        error -> System.err.println("Error retrieving subscribed media count: " + error.getMessage()),
-//                        () -> System.out.println("Subscribed media count retrieval complete.")
-//                );
 
         String OUTPUT1= "output.txt";
         String OUTPUT2= "output2.txt";
@@ -194,19 +183,18 @@ public class Client
 //                        () -> System.out.println("Data retrieval complete.")
 //                );
 
-         // #4 (POR FAZER)
+         // #4
+//        // GET THE SUBSCRIBED MEDIA
 //        WebClient.create(BASE_URL)
 //                .get()
-//                .uri(GET_ALL_RELATIONSHIPS)
+//                .uri(SUBSCRIBED_MEDIA_COUNT_URI)
 //                .retrieve()
-//                .bodyToFlux(Relationship.class)
-//                .map(media -> media.)
+//                .bodyToMono(Long.class)
 //                .subscribe(
-//                        count -> writeToFile(count.toString(), OUTPUT3),
-//                        error -> System.err.println("Error retrieving the media items with average rating above 8: " + error.getMessage()),
-//                        () -> System.out.println("Data retrieval complete.")
+//                        count -> System.out.println("Total subscribed media count: " + count),
+//                        error -> System.err.println("Error retrieving subscribed media count: " + error.getMessage()),
+//                        () -> System.out.println("Subscribed media count retrieval complete.")
 //                );
-
 //        // #5
 //        WebClient.create(BASE_URL)
 //                .get()

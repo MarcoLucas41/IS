@@ -35,13 +35,6 @@ CREATE TABLE consumer (
 	gender VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE relationship (
-	consumer_id SERIAL,
-	media_id SERIAL,
-    rating SMALLINT,
-	PRIMARY KEY(consumer_id,media_id)
-)
-
 CREATE TABLE consumer_media (
     id SERIAL PRIMARY KEY,
 	consumer_id BIGINT,

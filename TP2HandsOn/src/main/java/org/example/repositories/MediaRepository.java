@@ -14,7 +14,7 @@ public interface MediaRepository extends ReactiveCrudRepository<Media,Long>{
     @Query("Select * from consumer where mediaId = $1")
     Flux<Consumer> findConsumerByMediaId(String mediaId);
 
-    @Query("SELECT COUNT(DISTINCT media_id) FROM relationship WHERE rating IS NOT NULL")
+    @Query("SELECT COUNT(DISTINCT media_id) FROM consumer_media WHERE rating IS NOT NULL")
     Mono<Long> countSubscribedMedia();
 }
 
