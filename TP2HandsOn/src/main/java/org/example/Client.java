@@ -148,11 +148,7 @@ public class Client
                 .uri(RELATIONSHIPS_URI)
                 .retrieve()
                 .bodyToFlux(Relationship.class)
-                .subscribe(
-                        relationship -> System.out.println("Relationship: " + relationship),
-                        error -> System.err.println("Error retrieving relationships: " + error.getMessage()),
-                        () -> System.out.println("All relationships retrieval complete.")
-                );
+                .subscribe(System.out::println);
 
         String OUTPUT1= "output.txt";
         String OUTPUT2= "output2.txt";
