@@ -206,7 +206,7 @@ public class Client
 //                .filter(media -> media.getRelease_date().isBefore(LocalDate.of(1990, 1, 1)) && media.getRelease_date().isAfter(LocalDate.of(1979, 12, 31)))
 //                .subscribe(System.out::println);
 
-        // Call the endpoint to get the average and standard deviation of media ratings
+        // #6 (FALTAM COISAS)
         WebClient.create(BASE_URL)
                 .get()
                 .uri(AVERAGE_STDDEV_RATINGS_URI)
