@@ -207,7 +207,7 @@ public class Client
                                 "-- Name: "+consumer.getName()+"\n"+
                                 "-- Age: "+consumer.getAge()+"\n"+
                                 "-- Gender: "+consumer.getGender()+"\n"+
-                                "-- Subscribed Media Items: "+consumer.getMedia_ids()+"\n";
+                                "-- Subscribed Media Items: "+consumer.getMediaTitles()+"\n";
                         try {
                             writer.write(content);
                         } catch (IOException e) {

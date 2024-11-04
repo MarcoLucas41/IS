@@ -23,23 +23,7 @@ public class RelationshipService
 
     public Mono<Relationship> createRelationship(Relationship r)
     {
-//        return cr.findById(r.getConsumerId()) // Retrieve the Consumer by ID
-//                .flatMap(consumer -> {
-//                    List<Long> favoriteMediaIds = consumer.getFavoriteMediaIds();
-//                    favoriteMediaIds.add(r.getMediaId());
-//                    consumer.setFavoriteMediaIds(favoriteMediaIds);
-//                    cr.save(consumer);
-//                    return mr.findById(r.getMediaId())
-//                            .flatMap(media -> {
-//                                List<Long> consumerIds = media.getConsumerIds(); // Extract consumerIds from Media
-//                                consumerIds.add(r.getConsumerId());
-//                                media.setConsumerIds(consumerIds);
-//                                mr.save(media);
-//                                return rr.save(r); // Save the Relationship with updated information
-//                            });
-//                });
         return rr.save(r);
-
     }
 
     public Flux<Relationship> getAllRelationships()

@@ -15,4 +15,5 @@ public class Consumer {
     private int age;
     private String gender;
     private List<Long> media_ids;
+    private List<String> mediaTitles;
 }
