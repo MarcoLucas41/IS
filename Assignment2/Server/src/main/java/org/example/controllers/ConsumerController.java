@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import org.example.dtos.ConsumerWithMedia;
 import org.example.entities.Consumer;
 import org.example.entities.Relationship;
 import org.example.services.ConsumerService;
@@ -18,7 +19,6 @@ public class ConsumerController
     private ConsumerService cs;
     @Autowired
     private RelationshipService rs;
-
     @PostMapping
     private Mono<Consumer> saveConsumer(@RequestBody Consumer c)
     {
@@ -29,11 +29,17 @@ public class ConsumerController
     {
         return cs.getAllConsumers();
     }
+    @GetMapping("/with-media")
+    public Flux<ConsumerWithMedia> getAllConsumersWithMedia() {
+        return cs.findAllConsumersWithMediaIds();
+    }
     @GetMapping("/{id}")
     public Mono<Consumer> getConsumer(@PathVariable("id") Long id)
     {
         return cs.getConsumer(id);
     }
+
+
     @PutMapping
     private Mono<Consumer> updateConsumer(@RequestBody Consumer c)
     {

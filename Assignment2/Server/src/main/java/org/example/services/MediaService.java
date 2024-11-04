@@ -24,26 +24,19 @@ public class MediaService
     }
     public Flux<Media> getAllMedia()
     {
-        return mr.findAll() // Retrieve all media items
-                .flatMap(media ->
-                        getMediaAvgRating(media.getId()) // Calculate average rating for each media item
-                                .map(avgRating -> {
-                                    media.setAvg_rating(avgRating); // Set the average rating in the media object
-                                    return media;                 // Return the updated media object
-                                })
-                );
+        return mr.findAll();
     }
 
     public Mono<Media> getMedia(Long id)
     {
-        return mr.findById(id)
-                 .flatMap(media ->
-                    getMediaAvgRating(media.getId())
-                            .map(avgRating -> {
-                                media.setAvg_rating(avgRating);
-                                return media;
-                            })
-    );
+        return mr.findById(id);
+//                 .flatMap(media ->
+//                    getMediaAvgRating(media.getId())
+//                            .map(avgRating -> {
+//                                media.setAvg_rating(avgRating);
+//                                return media;
+//                            })
+//    );
     }
     public Mono<Media>  updateMedia(Media m) {
         return mr.save(m);
@@ -53,33 +46,33 @@ public class MediaService
         return mr.deleteById(id);
     }
 
-    public Mono<Float> getMediaAvgRating(Long id1)
-    {
-        return rr.findAll()
-                .filter(r -> r.getMediaId().equals(id1))
-                .map(Relationship::getRating)
-                .reduce(new RatingAccumulator((float) 0, 0),     // Initial accumulator with sum 0, count 0
-                        (accumulator, rating) -> new RatingAccumulator(
-                                 accumulator.sum+rating,
-                                accumulator.count + 1
-                        ))                               // Accumulate sum and count
-                .flatMap(accumulator -> {
-                    if (accumulator.count == 0) {
-                        return Mono.just(0.0f);           // Handle case where no ratings were found
-                    }
-                    float avg =  accumulator.sum / accumulator.count;
-                    return Mono.just(avg);               // Calculate and return the average
-                });
-    }
+//    public Mono<Float> getMediaAvgRating(Long id1)
+//    {
+//        return rr.findAll()
+//                .filter(r -> r.getMediaId().equals(id1))
+//                .map(Relationship::getRating)
+//                .reduce(new RatingAccumulator((float) 0, 0),     // Initial accumulator with sum 0, count 0
+//                        (accumulator, rating) -> new RatingAccumulator(
+//                                 accumulator.sum+rating,
+//                                accumulator.count + 1
+//                        ))                               // Accumulate sum and count
+//                .flatMap(accumulator -> {
+//                    if (accumulator.count == 0) {
+//                        return Mono.just(0.0f);           // Handle case where no ratings were found
+//                    }
+//                    float avg =  accumulator.sum / accumulator.count;
+//                    return Mono.just(avg);               // Calculate and return the average
+//                });
+//    }
 }
-
-// Helper class to hold the sum and count
-class RatingAccumulator {
-    float sum;
-    int count;
-
-    RatingAccumulator(float sum, int count) {
-        this.sum = sum;
-        this.count = count;
-    }
-}
+//
+//// Helper class to hold the sum and count
+//class RatingAccumulator {
+//    float sum;
+//    int count;
+//
+//    RatingAccumulator(float sum, int count) {
+//        this.sum = sum;
+//        this.count = count;
+//    }
+//}

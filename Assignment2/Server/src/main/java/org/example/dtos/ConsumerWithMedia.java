@@ -1,4 +1,4 @@
-package org.example.models;
+package org.example.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +9,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Consumer {
+public class ConsumerWithMedia {
     private Long id;
     private String name;
     private int age;
     private String gender;
-    private List<Long> media_ids;
+    private List<Long> media_ids; // Store related Media IDs
 }

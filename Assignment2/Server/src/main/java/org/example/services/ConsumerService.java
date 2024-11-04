@@ -1,5 +1,6 @@
 package org.example.services;
 
+import org.example.dtos.ConsumerWithMedia;
 import org.example.entities.Consumer;
 import org.example.repositories.ConsumerRepository;
 import org.example.repositories.MediaRepository;
@@ -39,6 +40,10 @@ public class ConsumerService
     public Mono<Consumer> getConsumer(Long id) {
         return cr.findById(id).switchIfEmpty(Mono.error(new NoSuchElementException()));
     }
+    public Flux<ConsumerWithMedia> findAllConsumersWithMediaIds(){
+        cr.findAllConsumersWithMediaIds().subscribe(System.out::println);
+        return cr.findAllConsumersWithMediaIds();
+    };
 
     public Mono<Consumer> updateConsumer(Consumer c) {
         return customerExists(c.getId()).then(cr.save(c));
