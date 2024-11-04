@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/media")
@@ -59,8 +61,9 @@ public class MediaController
         return ms.calculateAverageUsersPerMedia();
     }
 
-    @GetMapping("/average-and-stddev-ratings")
-    private Mono<Double[]> getAverageAndStdDevRatings() {
-        return ms.getAverageAndStdDevOfRatings();
+    @GetMapping("/ratings/stats")
+    private Mono<Double> getAverageMediaRating() {
+        return ms.getAverageMediaRating();
     }
+
 }

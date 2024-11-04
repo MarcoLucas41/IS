@@ -96,26 +96,19 @@ public class MediaService
                 });
     }
 
-    public Mono<Double[]> getAverageAndStdDevOfRatings() {
-        return mr.findAllRatings()
-                .collectList()
-                .flatMap(ratings -> {
-                    int count = ratings.size();
-                    if (count == 0) {
-                        return Mono.just(new Double[]{0.0, 0.0});
-                    }
-
-                    double average = ratings.stream().mapToDouble(Integer::doubleValue).average().orElse(0.0);
-
-                    // Standard deviation calculation
-                    double variance = ratings.stream()
-                            .mapToDouble(r -> Math.pow(r - average, 2))
-                            .sum() / count;
-                    double stdDeviation = Math.sqrt(variance);
-
-                    return Mono.just(new Double[]{average, stdDeviation});
+    public Mono<Double> getAverageMediaRating() {
+        return mr.findMediaWithNonZeroRating()
+                .map(Media::getAvg_rating)   // Extract ratings
+                .collectList()               // Collect into a list for processing
+                .map(ratings -> {
+                    double sum = ratings.stream()
+                            .mapToDouble(rating -> rating) // Use a lambda expression
+                            .sum();
+                    return !ratings.isEmpty() ? sum / ratings.size() : 0.0;
                 });
     }
+
+
 
     public Flux<Relationship> getAllRelationships() {
         return mr.findAllRelationships();

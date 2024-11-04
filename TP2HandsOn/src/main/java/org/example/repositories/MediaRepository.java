@@ -23,5 +23,9 @@ public interface MediaRepository extends ReactiveCrudRepository<Media,Long>{
 
     @Query("SELECT avg_rating FROM media")
     Flux<Integer> findAllRatings();
+
+    @Query("SELECT * FROM media WHERE avg_rating > 0")
+    Flux<Media> findMediaWithNonZeroRating();
+
 }
 
