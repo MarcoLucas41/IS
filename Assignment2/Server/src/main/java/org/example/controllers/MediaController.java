@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/media")
@@ -45,5 +47,23 @@ public class MediaController
         return ms.deleteMedia(id);
     }
 
+//    @GetMapping("/relationships")
+//    public Flux<Relationship> getAllRelationships() {
+//        return ms.getAllRelationships();
+//    }
+//    @GetMapping("/subscribed/count")
+//    private Mono<Long> getSubscribedMediaCount() {
+//        return ms.getSubscribedMediaCount();
+//    }
+//
+//    @GetMapping("/average-users-per-media")
+//    public Mono<Double> getAverageUsersPerMedia() {
+//        return ms.calculateAverageUsersPerMedia();
+//    }
+//
+//    @GetMapping("/ratings/stats")
+//    private Mono<Double> getAverageMediaRating() {
+//        return ms.getAverageMediaRating();
+//    }
 
 }

@@ -24,9 +24,3 @@ public interface ConsumerRepository extends ReactiveCrudRepository<Consumer,Long
     Flux<ConsumerWithMedia> findAllConsumersWithMediaIds();
 }
 
-//@Query("""
-//           SELECT c.id, c.name, c.age, c.gender, array_agg(cm.media_id) AS media_ids
-//           FROM consumer c
-//           LEFT JOIN consumer_media cm ON c.id = cm.consumer_id
-//           GROUP BY c.id, c.name, c.age, c.gender
-//           """)

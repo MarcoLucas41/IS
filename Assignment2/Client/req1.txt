@@ -1,6 +1,0 @@
-Title: Inception, Release Date: 2010-07-16;
-Title: The Godfather, Release Date: 1972-03-24;
-Title: Pulp Fiction, Release Date: 1994-10-14;
-Title: The Dark Knight, Release Date: 2008-07-18;
-Title: Forrest Gump, Release Date: 1994-07-06;
-Title: Robocop, Release Date: 1987-10-23;

@@ -5,7 +5,6 @@ import org.example.entities.Consumer;
 import org.example.entities.Relationship;
 import org.example.services.ConsumerService;
 import org.example.services.RelationshipService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;

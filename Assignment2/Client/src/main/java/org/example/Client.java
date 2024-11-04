@@ -230,11 +230,11 @@ public class Client
     public static void clientRequirements() {
         WebClient client = WebClient.create("http://localhost:8080");
         clientService = new ClientService(client);
-//        Req1();
-//        Req2();
-//        Req3();
-//        Req5();
-//        Req7();
+        Req1();
+        Req2();
+        Req3();
+        Req5();
+        Req7();
         Req10();
     }
 

@@ -15,9 +15,6 @@ public class MediaService {
     @Autowired
     private MediaRepository mr;
 
-    @Autowired
-    private RelationshipRepository rr;
-
     public Mono<Media> saveMedia(Media m) {
         return mr.save(m);
     }
@@ -30,7 +27,6 @@ public class MediaService {
         return mr.findById(id);
 
     }
-
     public Mono<Media> updateMedia(Media m) {
         return mr.save(m);
     }
