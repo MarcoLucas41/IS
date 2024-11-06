@@ -38,7 +38,6 @@ public class ConsumerController
         return cs.getConsumer(id);
     }
 
-
     @PutMapping
     private Mono<Consumer> updateConsumer(@RequestBody Consumer c)
     {
@@ -49,6 +48,11 @@ public class ConsumerController
     {
         return cs.deleteConsumer(id);
     }
+
+
+
+
+
 
     @PostMapping("/createRelationship/{id1}/{id2}/{rating}") //id1 =consumer_id   //id2 = media_id
     private Mono<Relationship> createRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2, @PathVariable("rating") int rating)
@@ -63,6 +67,8 @@ public class ConsumerController
     @GetMapping("/readRelationship/{id1}/{id2}")
     private Mono<Relationship> readRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2)
     {
+        rs.readRelationship(id1,id2).subscribe(System.out::println);
+        System.out.println("here");
         return rs.readRelationship(id1,id2);
     }
     @GetMapping("/getAllRelationships")
@@ -76,10 +82,5 @@ public class ConsumerController
     {
         return rs.deleteRelationship(id1,id2);
     }
-
-
-
-
-
 
 }

@@ -6,6 +6,7 @@ import org.example.repositories.MediaRepository;
 import org.example.repositories.RelationshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -25,6 +26,25 @@ public class RelationshipService
     {
         return rr.save(r);
     }
+
+
+
+    public Flux<Long> getAllMediasByConsumerID(Long id)
+    {
+        return rr.findAll()
+                .filter(relationship -> relationship.getConsumerId() == id)
+                .map(Relationship::getMediaId);
+    }
+
+    public Flux<Long> getAllConsumersByMediaID(Long id)
+    {
+        return rr.findAll()
+                 .filter(relationship -> relationship.getMediaId() == id)
+                 .map(Relationship::getConsumerId);
+    }
+
+
+
 
     public Flux<Relationship> getAllRelationships()
     {

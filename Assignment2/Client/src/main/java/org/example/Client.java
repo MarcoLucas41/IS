@@ -31,6 +31,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 
@@ -128,7 +129,29 @@ public class Client
     }
     public static void Req4()
     {
-
+        createFile("4");
+        try {
+            Mono<Long> mono = clientService.getCountSubscribedMedia();
+            BufferedWriter writer = new BufferedWriter(new FileWriter("req4.txt"));
+            mono.doOnNext(total -> {
+                        String content = "Total number of subscribed media: " + total.toString() + "\n";
+                        try {
+                            writer.write(content);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .doFinally(signalType -> {
+                        try {
+                            writer.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .subscribe();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public static void Req5()
     {
@@ -159,7 +182,30 @@ public class Client
     }
     public static void Req6()
     {
-
+        createFile("6");
+        try {
+            Mono<Stats> statsMono = clientService.getAveragesAndStandardDeviations();
+            BufferedWriter writer = new BufferedWriter(new FileWriter("req6.txt"));
+            statsMono.doOnNext(stats -> {
+                        String content = "Average: " + stats.getAverage()+ ", Standard Deviation: "
+                                + stats.getStandardDeviation()+"\n";
+                        try {
+                            writer.write(content);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .doFinally(signalType -> {
+                        try {
+                            writer.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .subscribe();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public static void Req7()
     {
@@ -190,7 +236,29 @@ public class Client
 
     public static void Req8()
     {
-
+        createFile("8");
+        try {
+            Mono<Double> avgMono = clientService.getAverageNumberUsersPerMedia();
+            BufferedWriter writer = new BufferedWriter(new FileWriter("req8.txt"));
+            avgMono.doOnNext(avg -> {
+                        String content = "Average number of users per media: " + avg+"\n";
+                        try {
+                            writer.write(content);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .doFinally(signalType -> {
+                        try {
+                            writer.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .subscribe();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public static void Req9()
     {
@@ -200,14 +268,16 @@ public class Client
     {
         createFile("10");
         try {
-            Flux<Consumer> flux = clientService.getConsumersData();
+            Flux<ConsumerWithMedia> flux = clientService.getConsumersData();
             BufferedWriter writer = new BufferedWriter(new FileWriter("req10.txt"));
             flux.doOnNext(consumer -> {
-                        String content = "ID: " + consumer.getId()+"\n"+
+                        String content = "ID: " + consumer.getConsumerId()+"\n"+
                                 "-- Name: "+consumer.getName()+"\n"+
                                 "-- Age: "+consumer.getAge()+"\n"+
-                                "-- Gender: "+consumer.getGender()+"\n"+
-                                "-- Subscribed Media Items: "+consumer.getMediaTitles()+"\n";
+                                "-- Gender: "+consumer.getGender()+"\n";
+                        List<String> temp = consumer.getMediaTitles();
+                        if(!temp.isEmpty()) content += "-- Subscribed Media Items: "+consumer.getMediaTitles()+"\n";
+                        else content += "-- No Subscribed Items\n";
                         try {
                             writer.write(content);
                         } catch (IOException e) {
@@ -230,12 +300,15 @@ public class Client
     public static void clientRequirements() {
         WebClient client = WebClient.create("http://localhost:8080");
         clientService = new ClientService(client);
-        Req1();
-        Req2();
-        Req3();
-        Req5();
-        Req7();
-        Req10();
+//        Req1();
+//        Req2();
+//        Req3();
+//        Req4();
+//        Req5();
+          Req6();
+//        Req7();
+          Req8();
+//        Req10();
     }
 
     public static void main(String[] args)

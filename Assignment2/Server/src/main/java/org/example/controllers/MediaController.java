@@ -36,6 +36,10 @@ public class MediaController
         return ms.getMedia(id);
     }
 
+    @GetMapping("/getSubscribedCount")
+    private Mono<Long> getSubscribedMediaCount() {
+        return ms.getSubscribedMediaCount();
+    }
     @PutMapping
     private Mono<Media> updateMedia(@RequestBody Media m)
     {
