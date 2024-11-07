@@ -1,14 +1,8 @@
 package org.example.entities;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Table(name = "consumer")
 @Data
@@ -21,4 +15,9 @@ public class Consumer {
     private int age;
     private String gender;
 
+    public Consumer(String name, int age, String gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
 }

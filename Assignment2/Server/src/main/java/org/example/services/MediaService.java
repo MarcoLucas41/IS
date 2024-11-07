@@ -1,9 +1,7 @@
 package org.example.services;
 
 import org.example.entities.Media;
-import org.example.entities.Relationship;
 import org.example.repositories.MediaRepository;
-import org.example.repositories.RelationshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +23,6 @@ public class MediaService {
 
     public Mono<Media> getMedia(Long id) {
         return mr.findById(id);
-    }
-    public Mono<Long> getSubscribedMediaCount() {
-        return mr.countSubscribedMedia();
     }
     public Mono<Media> updateMedia(Media m) {
         return mr.save(m);

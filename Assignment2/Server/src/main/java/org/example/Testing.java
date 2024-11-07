@@ -4,7 +4,6 @@ import lombok.ToString;
 import org.example.entities.Consumer;
 import org.example.entities.Media;
 import org.example.entities.Relationship;
-import org.json.JSONObject;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.codec.CharSequenceEncoder;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -27,11 +26,6 @@ import java.time.LocalDate;
 
 public class Testing
 {
-    interface MyComparator {
-        int compareTo(int i1, int i2);
-
-    }
-
     public static void main(String[] args)
     {
 
@@ -48,9 +42,6 @@ public class Testing
         String RELATIONSHIP_DELETE_URI = "/consumer/deleteRelationship/"+CONSUMER_ID+"/"+MEDIA_ID;
         String GET_ALL_RELATIONSHIPS = "/consumer/getAllRelationships";
 
-
-
-        //***** WORKS *****
         //GET ALL MEDIA
         WebClient.create(BASE_URL)
                 .get()
@@ -59,60 +50,59 @@ public class Testing
                 .bodyToFlux(Media.class)
                 .subscribe(System.out::println);
 
-//        //GET ONE MEDIA
-//        WebClient.create(BASE_URL)
-//                .get()
-//                .uri(GET_MEDIA_URI)
-//                .retrieve()
-//                .bodyToFlux(Media.class)
-//                .subscribe(System.out::println);
+         //GET ONE MEDIA
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(GET_MEDIA_URI)
+                .retrieve()
+                .bodyToFlux(Media.class)
+                .subscribe(System.out::println);
 
         //GET ALL CONSUMERS
-//        WebClient.create(BASE_URL)
-//                .get()
-//                .uri(GET_ALL_CONSUMERS_URI)
-//                .retrieve()
-//                .bodyToFlux(Consumer.class)
-//                .subscribe(System.out::println);
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(GET_ALL_CONSUMERS_URI)
+                .retrieve()
+                .bodyToFlux(Consumer.class)
+                .subscribe(System.out::println);
 
 //        //GET ONE CONSUMER
-//        WebClient.create(BASE_URL)
-//                .get()
-//                .uri(GET_CONSUMER_URI)
-//                .retrieve()
-//                .bodyToMono(Consumer.class)
-//                .subscribe(System.out::println);
+        WebClient.create(BASE_URL)
+                .get()
+                .uri(GET_CONSUMER_URI)
+                .retrieve()
+                .bodyToMono(Consumer.class)
+                .subscribe(System.out::println);
 
 //        //  POST ONE MEDIA
-//        Media series = new Media("The Walking Dead",LocalDate.of(2010, 10, 31),"TV Show");
+        Media series = new Media("The Walking Dead",LocalDate.of(2010, 10, 31),"TV Show");
 //
-//        WebClient.create(BASE_URL)
-//                .post()
-//                .uri(GET_ALL_MEDIA_URI)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .bodyValue(series)
-//                .retrieve()
-//                .toEntity(Media.class)
-//                .subscribe(System.out::println);
+        WebClient.create(BASE_URL)
+                .post()
+                .uri(GET_ALL_MEDIA_URI)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(series)
+                .retrieve()
+                .toEntity(Media.class)
+                .subscribe(System.out::println);
 //
-//         // POST ONE CONSUMER
-//        Consumer michael = new Consumer("Michael", 20,"Male");
-//
-//        WebClient.create(BASE_URL)
-//                .post()
-//                .uri(GET_ALL_CONSUMERS_URI)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .bodyValue(michael)
-//                .retrieve()
-//                .toEntity(Consumer.class)
-//                .subscribe(System.out::println);
+//      // POST ONE CONSUMER
+        Consumer michael = new Consumer("Michael", 20,"Male");
+        WebClient.create(BASE_URL)
+                .post()
+                .uri(GET_ALL_CONSUMERS_URI)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(michael)
+                .retrieve()
+                .toEntity(Consumer.class)
+                .subscribe(System.out::println);
         //DELETE ONE MEDIA
-//        WebClient.create(BASE_URL)
-//                 .delete()
-//                 .uri(GET_MEDIA_URI)
-//                 .retrieve()
-//                 .toEntity(Media.class)
-//                 .subscribe(System.out::println);
+        WebClient.create(BASE_URL)
+                 .delete()
+                 .uri(GET_MEDIA_URI)
+                 .retrieve()
+                 .toEntity(Media.class)
+                 .subscribe(System.out::println);
         // DELETE ONE CONSUMER
 //        WebClient.create(BASE_URL)
 //                 .delete()

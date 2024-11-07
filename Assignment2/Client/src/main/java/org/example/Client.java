@@ -262,7 +262,35 @@ public class Client
     }
     public static void Req9()
     {
-
+        createFile("9");
+        try {
+            Flux<MediaUsersInfo> flux = clientService.getUsersPerMediaItem();
+            BufferedWriter writer = new BufferedWriter(new FileWriter("req9.txt"));
+            flux.doOnNext(mediaUsersInfo -> {
+                        String content = "Media: " + mediaUsersInfo.getMediaName()+" --  "+mediaUsersInfo.getUserCount()+"\n";
+                        List<Consumer> temp = mediaUsersInfo.getConsumers();
+                        for(Consumer c: temp)
+                        {
+                            content += c.getName();
+                            content +="\n";
+                        }
+                        try {
+                            writer.write(content);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .doFinally(signalType -> {
+                        try {
+                            writer.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .subscribe();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public static void Req10()
     {
@@ -300,15 +328,16 @@ public class Client
     public static void clientRequirements() {
         WebClient client = WebClient.create("http://localhost:8080");
         clientService = new ClientService(client);
-//        Req1();
-//        Req2();
-//        Req3();
-//        Req4();
-//        Req5();
+        Req1();
+        Req2();
+        Req3();
+          Req4();
+          Req5();
           Req6();
-//        Req7();
+          Req7();
           Req8();
-//        Req10();
+          Req9();
+          Req10();
     }
 
     public static void main(String[] args)

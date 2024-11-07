@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@RestController("/relationship")
+@RestController
+@RequestMapping("/relationship")
 public class RelationshipController
 {
     @Autowired
@@ -22,14 +23,14 @@ public class RelationshipController
         return rs.createRelationship(r);
     }
 
-    // Read all media for consumer id
+    // Read all media ids  for consumer id
     @GetMapping("/consumer/{id}")
     private Flux<Long> getAllMediasByConsumerID(@PathVariable("id")Long id)
     {
         return rs.getAllMediasByConsumerID(id);
     }
 
-    // Read all consumers by media id
+    // Read all consumers ids by media id
     @GetMapping("/media/{id}")
     private Flux<Long> getAllConsumersByMediaID(@PathVariable("id")Long id)
     {

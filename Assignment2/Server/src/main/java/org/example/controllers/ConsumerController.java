@@ -1,6 +1,5 @@
 package org.example.controllers;
 
-import org.example.dtos.ConsumerWithMedia;
 import org.example.entities.Consumer;
 import org.example.entities.Relationship;
 import org.example.services.ConsumerService;
@@ -27,10 +26,6 @@ public class ConsumerController
     private Flux<Consumer> getAllConsumers()
     {
         return cs.getAllConsumers();
-    }
-    @GetMapping("/with-media")
-    public Flux<ConsumerWithMedia> getAllConsumersWithMedia() {
-        return cs.findAllConsumersWithMediaIds();
     }
     @GetMapping("/{id}")
     public Mono<Consumer> getConsumer(@PathVariable("id") Long id)

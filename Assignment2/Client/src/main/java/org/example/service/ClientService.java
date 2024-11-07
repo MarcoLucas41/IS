@@ -109,7 +109,6 @@ public class ClientService
                 .map(StatsAccumulator::calculateStats); // Finalize calculations
     }
 
-
     // 7. Name of the oldest media item
     public Flux<Media> getNameOldestMedia()
     {
@@ -204,13 +203,4 @@ public class ClientService
 
 
     }
-
-
-
-
-
-
-
-
-
 }
