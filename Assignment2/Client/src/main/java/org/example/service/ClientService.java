@@ -5,8 +5,7 @@ import org.example.MediaUsersInfo;
 import org.example.Stats;
 import org.example.models.Consumer;
 import org.example.models.Media;
-import org.example.models.Relationship;
-import org.springframework.stereotype.Service;
+
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -14,8 +13,7 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+
 
 
 public class ClientService
@@ -34,18 +32,17 @@ public class ClientService
                 .uri("/media")
                 .retrieve()
                 .bodyToFlux(Media.class) // Convert the response to a Flux of Owners
-                .map(media -> new Media(media.getTitle(), media.getRelease_date()))
-                .retry(3);
+                .map(media -> new Media(media.getTitle(), media.getRelease_date()));
     }
 
     // 2. Number of Media Items
-    public Mono<Long> getNumberOfMediaItems() {
+    public Mono<Long> getNumberOfMediaItems()
+    {
         return webClient.get()
                 .uri("/media")
                 .retrieve()
                 .bodyToFlux(Media.class)
                 .count();
-
     }
 
     // 3. Number of Media with average rating above 8
@@ -58,13 +55,6 @@ public class ClientService
                 .filter(media -> media.getAvg_rating() > 8)
                 .count();
     }
-    //        return webClient.get()
-//                .uri( "/consumer/getAllRelationships")
-//                .retrieve()
-//                .bodyToFlux(Relationship.class)
-//                .map(Relationship::getMediaId) // Extract media_id from each Relationship
-//                .distinct()                    // Filter for distinct media_id values
-//                .count();                      // Count the distinct media_ids
 
     // 4. Total count of media items that are subscribed
     public Mono<Long> getCountSubscribedMedia()
@@ -200,7 +190,5 @@ public class ClientService
                                                 return mediaInfo;
                                             })
                         );
-
-
     }
 }

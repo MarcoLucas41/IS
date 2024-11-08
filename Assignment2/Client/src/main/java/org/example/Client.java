@@ -1,40 +1,28 @@
 package org.example;
 
-import lombok.ToString;
 
 import org.example.models.Consumer;
 import org.example.models.Media;
 import org.example.service.ClientService;
-import org.json.JSONObject;
-import org.springframework.boot.SpringApplication;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.ResolvableType;
-import org.springframework.core.codec.CharSequenceEncoder;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DataBufferUtils;
-import org.springframework.core.io.buffer.DefaultDataBufferFactory;
-import org.springframework.http.MediaType;
-import org.springframework.ui.context.support.SimpleTheme;
-import org.springframework.web.reactive.function.BodyInserters;
+
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
+
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SpringBootApplication
-
 public class Client
 {
     static ClientService clientService;
@@ -70,7 +58,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req1 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,7 +88,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req2 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +118,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req3 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,7 +148,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req4 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -175,7 +179,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req5 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -187,10 +195,17 @@ public class Client
             Mono<Stats> statsMono = clientService.getAveragesAndStandardDeviations();
             BufferedWriter writer = new BufferedWriter(new FileWriter("req6.txt"));
             statsMono.doOnNext(stats -> {
-                        String content = "Average: " + stats.getAverage()+ ", Standard Deviation: "
-                                + stats.getStandardDeviation()+"\n";
+                        StringBuilder content = new StringBuilder("Average of all media items ratings: " + stats.getAverage() + "\n");
+                        content.append("Standard Deviations:\n");
+                        List<Double> temp = stats.getStandardDeviations();
+                        String userline;
+                        for(Double d: temp)
+                        {
+                            userline = "-- "+d+"\n";
+                            content.append(userline);
+                        }
                         try {
-                            writer.write(content);
+                            writer.write(content.toString());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -202,7 +217,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req6 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -228,7 +247,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req7 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -255,7 +278,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req8 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -267,15 +294,16 @@ public class Client
             Flux<MediaUsersInfo> flux = clientService.getUsersPerMediaItem();
             BufferedWriter writer = new BufferedWriter(new FileWriter("req9.txt"));
             flux.doOnNext(mediaUsersInfo -> {
-                        String content = "Media: " + mediaUsersInfo.getMediaName()+" --  "+mediaUsersInfo.getUserCount()+"\n";
+                        StringBuilder content = new StringBuilder("Media: " + mediaUsersInfo.getMediaName() + " --  " + mediaUsersInfo.getUserCount() + "\n");
                         List<Consumer> temp = mediaUsersInfo.getConsumers();
+                        String userline;
                         for(Consumer c: temp)
                         {
-                            content += c.getName();
-                            content +="\n";
+                            userline = "-- "+ c.getName()+" ("+c.getAge()+")\n";
+                            content.append(userline);
                         }
                         try {
-                            writer.write(content);
+                            writer.write(content.toString());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -287,7 +315,11 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req9 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -319,30 +351,45 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe();
+                    .subscribe(
+                            null,
+                            Throwable::printStackTrace, // Handle any errors during the pipeline
+                            () -> System.out.println("Req10 completed successfully.") // Completion signal
+                    );
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void clientRequirements() {
+
+    public static void clientRequirements(String[] args)
+    {
         WebClient client = WebClient.create("http://localhost:8080");
         clientService = new ClientService(client);
-        Req1();
-        Req2();
-        Req3();
-          Req4();
-          Req5();
-          Req6();
-          Req7();
-          Req8();
-          Req9();
-          Req10();
+
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+        // Create an array of CompletableFutures for each Req function
+        CompletableFuture<Void> req1 = CompletableFuture.runAsync(() -> Req1(), executor);
+        CompletableFuture<Void> req2 = CompletableFuture.runAsync(() -> Req2(), executor);
+        CompletableFuture<Void> req3 = CompletableFuture.runAsync(() -> Req3(), executor);
+        CompletableFuture<Void> req4 = CompletableFuture.runAsync(() -> Req4(), executor);
+        CompletableFuture<Void> req5 = CompletableFuture.runAsync(() -> Req5(), executor);
+        CompletableFuture<Void> req6 = CompletableFuture.runAsync(() -> Req6(), executor);
+        CompletableFuture<Void> req7 = CompletableFuture.runAsync(() -> Req7(), executor);
+        CompletableFuture<Void> req8 = CompletableFuture.runAsync(() -> Req8(), executor);
+        CompletableFuture<Void> req9 = CompletableFuture.runAsync(() -> Req9(), executor);
+        CompletableFuture<Void> req10 = CompletableFuture.runAsync(() -> Req10(), executor);
+
+        // Wait for all requests to complete
+        CompletableFuture.allOf(req1, req2, req3, req4, req5, req6, req7, req8, req9, req10).join();
+
+        // Shutdown the executor to release resources
+        executor.shutdown();
     }
 
     public static void main(String[] args)
     {
-        System.out.println("IM RUNNING!!!");
-        clientRequirements();
+        clientRequirements(args);
     }
 }

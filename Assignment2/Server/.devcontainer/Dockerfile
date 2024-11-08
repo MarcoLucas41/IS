@@ -1,8 +1,8 @@
 FROM maven:3-eclipse-temurin-21
 
 # Arguments for user configuration
-ARG USER_NAME="dev2"
-ARG USER_PASSWORD="dev2"
+ARG USER_NAME="dev"
+ARG USER_PASSWORD="dev"
 
 # Print the user details (for debugging, can be removed later)
 RUN echo $USER_NAME

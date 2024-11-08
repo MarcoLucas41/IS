@@ -1,17 +1,13 @@
 package org.example.controllers;
 
 import org.example.entities.Media;
-import org.example.entities.Relationship;
 import org.example.services.MediaService;
-import org.example.services.RelationshipService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.Map;
 
 
 @RestController
@@ -41,7 +37,6 @@ public class MediaController
         logger.info("Request to get media by ID: {}", id);
         return ms.getMedia(id);
     }
-
     @PutMapping
     private Mono<Media> updateMedia(@RequestBody Media m)
     {
@@ -53,6 +48,10 @@ public class MediaController
     {
         logger.info("Request to delete media by ID: {}", id);
         return ms.deleteMedia(id);
+    }
+    @GetMapping("/test-retry")
+    public Mono<String> testRetry() {
+        return ms.simulateFailure();
     }
 
 

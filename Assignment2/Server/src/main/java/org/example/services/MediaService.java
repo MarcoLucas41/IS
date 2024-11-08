@@ -2,12 +2,8 @@ package org.example.services;
 
 import org.example.entities.Media;
 import org.example.repositories.MediaRepository;
-<<<<<<< HEAD
-=======
-import org.example.repositories.RelationshipRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
->>>>>>> 29bcb0080b02c1999d850d8f2305fb536d5b389f
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +15,17 @@ public class MediaService {
     @Autowired
     private MediaRepository mr;
     private static final Logger logger = LoggerFactory.getLogger(MediaService.class);
+
+    private Mono<Boolean> mediaExists(Long id) {
+        logger.info("Verifying if a media exists by ID: {}", id);
+        return mr.existsById(id).handle((exists, sink) -> {
+            if (Boolean.FALSE.equals(exists)) {
+                sink.error(new IllegalArgumentException());
+            } else {
+                sink.next(exists);
+            }
+        });
+    }
 
 
     public Mono<Media> saveMedia(Media m) {
@@ -35,20 +42,22 @@ public class MediaService {
         logger.info("Getting media by ID: {}", id);
         return mr.findById(id);
     }
-<<<<<<< HEAD
-=======
-    public Mono<Long> getSubscribedMediaCount() {
-        logger.info("Getting total count of subscribed media");
-        return mr.countSubscribedMedia();
-    }
->>>>>>> 29bcb0080b02c1999d850d8f2305fb536d5b389f
     public Mono<Media> updateMedia(Media m) {
         logger.info("Updating media: {}", m.getTitle());
-        return mr.save(m);
+        return mediaExists(m.getId()).then(mr.save(m));
     }
 
     public Mono<Void> deleteMedia(Long id) {
         logger.info("Deleting media by ID: {}", id);
         return mr.deleteById(id);
+    }
+
+    public Mono<String> simulateFailure() {
+        // Introduce a random failure for testing
+        if (Math.random() > 0.5) {
+            return Mono.error(new RuntimeException("Simulated network failure"));
+        } else {
+            return Mono.just("Success");
+        }
     }
 }
