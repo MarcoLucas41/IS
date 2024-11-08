@@ -79,12 +79,6 @@ public class ConsumerController
         System.out.println("here");
         return rs.readRelationship(id1,id2);
     }
-    @GetMapping("/getAllRelationships")
-    private Flux<Relationship> getAllRelationships()
-    {
-        logger.info("Request to get all relationships");
-        return rs.getAllRelationships();
-    }
 
     @DeleteMapping("/deleteRelationship/{id1}/{id2}")
     private Mono<Void> deleteRelationship(@PathVariable("id1")Long id1, @PathVariable("id2") Long id2)

@@ -50,9 +50,9 @@ EXECUTE FUNCTION update_avg_rating();
 INSERT INTO media (title, release_date, type) VALUES
 ('Inception', '2010-07-16', 'Science Fiction'),
 ('The Godfather', '1972-03-24', 'Crime Drama'),
-('Pulp Fiction', '1994-10-14', 'Crime Thriller'),
+('Pulp Fiction', '1984-10-14', 'Crime Thriller'),
 ('The Dark Knight', '2008-07-18', 'Superhero'),
-('Forrest Gump', '1994-07-06', 'Drama'),
+('Forrest Gump', '1984-07-06', 'Drama'),
 ('Robocop', '1987-10-23', 'Science Fiction');
 
 -- Insert data into the consumer table

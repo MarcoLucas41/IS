@@ -34,6 +34,11 @@ RUN curl -LO https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/4.0.3/jaxws-
   && unzip jaxws-ri-4.0.3.zip
 ENV PATH="/jaxws-ri/bin/:${PATH}"
 
+RUN mkdir -p /app
+
+# Set ownership and permissions for the directory
+RUN chown -R ${USER_NAME}:${USER_NAME} /app && chmod -R 755 /app
+
 # Switch to the new user
 USER $USER_NAME
 
@@ -43,6 +48,10 @@ ENV ZSH_THEME robbyrussell
 
 # Install Oh-My-Zsh (non-interactive)
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+COPY Client-1.0-SNAPSHOT.jar /app/app.jar
+
+WORKDIR /app
 
 # Set zsh as the default shell
 CMD ["zsh"]

@@ -1,25 +1,27 @@
-#version: '3.8'
-
 services:
-  db:
+  postgres-db:
     image: postgres:latest
-    ports:
-      - 5432:5432
+    container_name: postgres-db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-#    networks:
-#      - server-network
-#  server:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    command: tail -f /dev/null
-#    networks:
-#      - server-network
-#    volumes:
-#      - ..:/workspace
-#
-#networks:
-#  server-network:
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+  server:
+    container_name: spring-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: tail -f /dev/null
+    networks:
+      - app-network
+    ports:
+      - "8080:8080"
+    volumes:
+      - ..:/workspace
+
+networks:
+  app-network:

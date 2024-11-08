@@ -32,7 +32,7 @@ public class Client
             myObj.createNewFile();
 
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Error in creating new file.");
             e.printStackTrace();
         }
     }
@@ -44,7 +44,8 @@ public class Client
             BufferedWriter writer = new BufferedWriter(new FileWriter("req1.txt"));
             flux.doOnNext(owner -> {
                         String content = "Title: " + owner.getTitle() + ", Release Date: "
-                                + owner.getRelease_date().toString() + ";\n";
+                                + owner.getRelease_date().toString() + "\n";
+                        System.out.println(content);
                         try {
                             writer.write(content);
                         } catch (IOException e) {
@@ -58,11 +59,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req1 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req1 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,7 +72,7 @@ public class Client
             Mono<Long> mono = clientService.getNumberOfMediaItems();
             BufferedWriter writer = new BufferedWriter(new FileWriter("req2.txt"));
             mono.doOnNext(total -> {
-                        String content = "Total number of media items: " + total.toString() + ";\n";
+                        String content = "Total number of media items: " + total.toString() + "\n";
                         try {
                             writer.write(content);
                         } catch (IOException e) {
@@ -88,11 +86,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req2 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req2 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,11 +113,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req3 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req3 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,11 +140,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req4 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req4 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -179,11 +168,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req5 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req5 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -217,11 +203,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req6 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req6 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -247,11 +230,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req7 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req7 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -278,11 +258,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req8 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req8 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -315,11 +292,8 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req9 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req9 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -351,20 +325,17 @@ public class Client
                             e.printStackTrace();
                         }
                     })
-                    .subscribe(
-                            null,
-                            Throwable::printStackTrace, // Handle any errors during the pipeline
-                            () -> System.out.println("Req10 completed successfully.") // Completion signal
-                    );
+                    .subscribe();
+            System.out.println("Req10 completed successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public static void clientRequirements(String[] args)
+    public static void clientRequirements()
     {
-        WebClient client = WebClient.create("http://localhost:8080");
+        WebClient client = WebClient.create("http://host.docker.internal:8080");
         clientService = new ClientService(client);
 
         ExecutorService executor = Executors.newFixedThreadPool(10);
@@ -381,6 +352,7 @@ public class Client
         CompletableFuture<Void> req9 = CompletableFuture.runAsync(() -> Req9(), executor);
         CompletableFuture<Void> req10 = CompletableFuture.runAsync(() -> Req10(), executor);
 
+
         // Wait for all requests to complete
         CompletableFuture.allOf(req1, req2, req3, req4, req5, req6, req7, req8, req9, req10).join();
 
@@ -390,6 +362,6 @@ public class Client
 
     public static void main(String[] args)
     {
-        clientRequirements(args);
+        clientRequirements();
     }
 }

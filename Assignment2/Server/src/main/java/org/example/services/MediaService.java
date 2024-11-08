@@ -52,12 +52,4 @@ public class MediaService {
         return mr.deleteById(id);
     }
 
-    public Mono<String> simulateFailure() {
-        // Introduce a random failure for testing
-        if (Math.random() > 0.5) {
-            return Mono.error(new RuntimeException("Simulated network failure"));
-        } else {
-            return Mono.just("Success");
-        }
-    }
 }

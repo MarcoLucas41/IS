@@ -49,10 +49,5 @@ public class MediaController
         logger.info("Request to delete media by ID: {}", id);
         return ms.deleteMedia(id);
     }
-    @GetMapping("/test-retry")
-    public Mono<String> testRetry() {
-        return ms.simulateFailure();
-    }
-
 
 }
